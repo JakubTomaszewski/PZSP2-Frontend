@@ -1,6 +1,7 @@
 import logo from "./logo.svg";
 import "./App.css";
 import Questions from "./components/Questions";
+import AddTask from "./components/AddTask";
 
 const questions = [
   {
@@ -38,9 +39,10 @@ function App() {
       <div className="container tags-box"></div>
       <div className="container questions">
         <header className="header">
-          <h2>Questions</h2>
-          <button className="add-question-button btn">Add</button>
+          <h2>Pytania</h2>
+          <button className="add-question-button btn">Dodaj pytanie</button>
         </header>
+        <AddTask />
         <Questions questions={questions} />
       </div>
     </div>
