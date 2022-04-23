@@ -5,7 +5,7 @@ const Questions = ({ questions }) => {
   return (
     <div>
       {questions.map((question) => (
-        <Question />
+        <Question question={question} />
       ))}
     </div>
   );

@@ -6,29 +6,44 @@ import Question from "./components/Question";
 const questions = [
   {
     id: 1,
+    courseCode: "A04",
+    type: "c",
     text: "Gdzie urodził się Kopernik?",
-    answers: ["w Warszawie", "w Grańsku", "w Berlinie", "w Toruniu"],
+    teacherId: 1,
+    answers: ["w Warszawie", "w Gdańsku", "w Berlinie", "w Toruniu"],
+    areCorrect: [false, false, false, true],
   },
   {
     id: 2,
+    courseCode: "A04",
+    type: "c",
     text: "Gdzie mieszka Papież?",
+    teacherId: 1,
     answers: ["w Warszawie", "w Watykanie", "w Berlinie", "w Toruniu"],
+    areCorrect: [false, true, false, false],
   },
   {
     id: 3,
+    courseCode: "A04",
+    type: "c",
     text: "Ile voltów mamy w gniazdku?",
+    teacherId: 1,
     answers: ["230", "50", "1000", "2"],
+    areCorrect: [true, false, false, false],
   },
 ];
 
 function App() {
   return (
-    <div className="questions">
-      <h2>Questions</h2>
-      <Questions questions={questions} />
-      {/* <Question />
-      <Question />
-      <Question /> */}
+    <div className="App">
+      <div className="container tags-box"></div>
+      <div className="container questions">
+        <h2>Questions</h2>
+        <Questions questions={questions} />
+        {/* <Question />
+        <Question />
+        <Question /> */}
+      </div>
     </div>
   );
 }
