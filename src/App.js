@@ -1,7 +1,6 @@
 import logo from "./logo.svg";
 import "./App.css";
 import Questions from "./components/Questions";
-import Question from "./components/Question";
 
 const questions = [
   {
@@ -38,11 +37,11 @@ function App() {
     <div className="App">
       <div className="container tags-box"></div>
       <div className="container questions">
-        <h2>Questions</h2>
+        <header className="header">
+          <h2>Questions</h2>
+          <button className="add-question-button btn">Add</button>
+        </header>
         <Questions questions={questions} />
-        {/* <Question />
-        <Question />
-        <Question /> */}
       </div>
     </div>
   );
