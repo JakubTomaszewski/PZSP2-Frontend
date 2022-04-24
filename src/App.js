@@ -2,47 +2,34 @@ import logo from "./logo.svg";
 import "./App.css";
 import Questions from "./components/Questions";
 import Question from "./components/Question";
-
-const questions = [
-  {
-    id: 1,
-    courseCode: "A04",
-    type: "c",
-    text: "Gdzie urodził się Kopernik?",
-    teacherId: 1,
-    answers: ["w Warszawie", "w Gdańsku", "w Berlinie", "w Toruniu"],
-    areCorrect: [false, false, false, true],
-  },
-  {
-    id: 2,
-    courseCode: "A04",
-    type: "c",
-    text: "Gdzie mieszka Papież?",
-    teacherId: 1,
-    answers: ["w Warszawie", "w Watykanie", "w Berlinie", "w Toruniu"],
-    areCorrect: [false, true, false, false],
-  },
-  {
-    id: 3,
-    courseCode: "A04",
-    type: "c",
-    text: "Ile voltów mamy w gniazdku?",
-    teacherId: 1,
-    answers: ["230", "50", "1000", "2"],
-    areCorrect: [true, false, false, false],
-  },
-];
+import { useState, useEffect } from "react";
 
 function App() {
+  const urlQuestions = "http://localhost:8080/api/questions/all/closed";
+  const [questions, setQuestions] = useState([]);
+
+  useEffect(() => {
+    const getQuestions = async () => {
+      const questionsFromServer = await fetchQuestions();
+      console.log(questionsFromServer);
+      setQuestions(questionsFromServer);
+    };
+
+    getQuestions();
+  }, []);
+
+  const fetchQuestions = async () => {
+    const res = await fetch(urlQuestions);
+    const data = await res.json();
+    return data;
+  };
+
   return (
     <div className="App">
       <div className="container tags-box"></div>
       <div className="container questions">
         <h2>Questions</h2>
         <Questions questions={questions} />
-        {/* <Question />
-        <Question />
-        <Question /> */}
       </div>
     </div>
   );
