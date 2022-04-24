@@ -44,8 +44,8 @@ function App() {
       body: JSON.stringify(newQuestion),
     });
 
-    const data = await res.json();
-    setQuestions([...questions, data]);
+    // const data = await res.json();
+    // setQuestions([...questions, data]);
   };
 
   return (
