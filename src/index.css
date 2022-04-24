@@ -157,6 +157,13 @@ input {
   border-radius: 8px;
 }
 
+.save-question-btn {
+  background-color:#000000;
+  color: #FFFFFF;
+  border: 0px;
+}
+
+
 .form-control-check {
 display: flex;
 align-items: center;

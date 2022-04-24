@@ -1,7 +1,8 @@
 import logo from "./logo.svg";
 import "./App.css";
 import Questions from "./components/Questions";
-import AddTask from "./components/AddTask";
+import AddQuestion from "./components/AddQuestion";
+import { useState } from "react";
 
 const questions = [
   {
@@ -33,16 +34,39 @@ const questions = [
   },
 ];
 
+function addQuestion(questionText) {
+  const newQuestion = {
+    id: 3,
+    courseCode: "A04",
+    type: "c",
+    text: questionText,
+    teacherId: 1,
+    answers: ["Odp1", "Odp2", "Odp3", "Odp4"],
+    areCorrect: [true, false, false, false],
+  };
+
+  console.log(newQuestion);
+  // TODO: POST request
+}
+
 function App() {
+  const [showAddQuestion, setShowAddQuestion] = useState(false);
+
   return (
     <div className="App">
       <div className="container tags-box"></div>
       <div className="container questions">
         <header className="header">
           <h2>Pytania</h2>
-          <button className="add-question-button btn">Dodaj pytanie</button>
+          <button
+            className="add-question-button btn"
+            onClick={() => setShowAddQuestion(!showAddQuestion)}
+            // showAddQuestion={showAddQuestion}
+          >
+            Dodaj pytanie
+          </button>
         </header>
-        <AddTask />
+        {showAddQuestion && <AddQuestion addQuestion={addQuestion} />}
         <Questions questions={questions} />
       </div>
     </div>
