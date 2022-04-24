@@ -4,53 +4,31 @@ import Questions from "./components/Questions";
 import AddQuestion from "./components/AddQuestion";
 import { useState } from "react";
 
-const questions = [
-  {
-    id: 1,
-    courseCode: "A04",
-    type: "c",
-    text: "Gdzie urodził się Kopernik?",
-    teacherId: 1,
-    answers: ["w Warszawie", "w Gdańsku", "w Berlinie", "w Toruniu"],
-    areCorrect: [false, false, false, true],
-  },
-  {
-    id: 2,
-    courseCode: "A04",
-    type: "c",
-    text: "Gdzie mieszka Papież?",
-    teacherId: 1,
-    answers: ["w Warszawie", "w Watykanie", "w Berlinie", "w Toruniu"],
-    areCorrect: [false, true, false, false],
-  },
-  {
-    id: 3,
-    courseCode: "A04",
-    type: "c",
-    text: "Ile voltów mamy w gniazdku?",
-    teacherId: 1,
-    answers: ["230", "50", "1000", "2"],
-    areCorrect: [true, false, false, false],
-  },
-];
-
-function addQuestion(questionText) {
-  const newQuestion = {
-    id: 3,
-    courseCode: "A04",
-    type: "c",
-    text: questionText,
-    teacherId: 1,
-    answers: ["Odp1", "Odp2", "Odp3", "Odp4"],
-    areCorrect: [true, false, false, false],
-  };
-
-  console.log(newQuestion);
-  // TODO: POST request
-}
-
 function App() {
   const [showAddQuestion, setShowAddQuestion] = useState(false);
+  const urlAddQuestions = "http://localhost:8080/api/questions/save";
+  // const urlAddQuestions = "http://localhost:5000/questions";
+  const [questions, setQuestions] = useState([]);
+
+  const addQuestion = async (questionText) => {
+    const newQuestion = {
+      courseCode: "A04",
+      type: "c",
+      content: questionText,
+      teacherId: 1,
+      answers: ["Odp1", "Odp2", "Odp3", "Odp4"],
+      areCorrect: [true, false, false, false],
+    };
+
+    const res = await fetch(urlAddQuestions, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(newQuestion),
+    });
+
+    const data = await res.json();
+    setQuestions([...questions, data]);
+  };
 
   return (
     <div className="App">
