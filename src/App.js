@@ -1,8 +1,10 @@
-import logo from "./logo.svg";
 import "./App.css";
 import Questions from "./components/Questions";
 import AddQuestion from "./components/AddQuestion";
 import { useState, useEffect } from "react";
+import ChosenQuestions from "./components/ChosenQuestions";
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
 
 function App() {
   const [showAddQuestion, setShowAddQuestion] = useState(false);
@@ -49,23 +51,32 @@ function App() {
   };
 
   return (
-    <div className="App">
-      <div className="container tags-box"></div>
-      <div className="container questions">
-        <header className="header">
-          <h2>Pytania</h2>
-          <button
-            className="add-question-button btn"
-            onClick={() => setShowAddQuestion(!showAddQuestion)}
-            // showAddQuestion={showAddQuestion}
-          >
-            Dodaj pytanie
-          </button>
-        </header>
-        {showAddQuestion && <AddQuestion addQuestion={addQuestion} />}
-        <Questions questions={questions} />
+    <DndProvider backend={HTML5Backend}>
+      <div className="App">
+        <div className="container tags-box"></div>
+        <div className='dragndropArea'>
+          <div className="container questions">
+            <header className="header">
+              <h2>Pytania</h2>
+              <button
+                className="add-question-button btn"
+                onClick={() => setShowAddQuestion(!showAddQuestion)}
+                // showAddQuestion={showAddQuestion}
+              >
+                Dodaj pytanie
+              </button>
+            </header>
+            <div className='existingQuestions'>
+              {showAddQuestion && <AddQuestion addQuestion={addQuestion} />}
+              <Questions questions={questions} />
+            </div>
+          </div>
+          <div className='container questions' >
+            <ChosenQuestions />
+          </div>
+        </div>
       </div>
-    </div>
+    </DndProvider>
   );
 }
 

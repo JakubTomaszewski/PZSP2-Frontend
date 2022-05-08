@@ -1,12 +1,18 @@
 import React from "react";
 import Answer from "./Answer";
+import {useDrag} from "react-dnd";
 
-const Question = (props) => {
+const Question = ({question_id, content, answers}) => {
+  const [{}, dragRef] = useDrag({
+      type: 'question',
+      item: {question_id, content, answers}
+  })
+
   return (
-    <div className="question container">
-      {props.question.content}
+    <div className="question container" ref={dragRef}>
+      {content}
       <div className="answer-section">
-        {props.question.answers.map((answer) => (
+        {answers.map((answer) => (
           <Answer key={answer.answerId} answer={answer} />
         ))}
       </div>
