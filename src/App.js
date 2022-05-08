@@ -12,6 +12,7 @@ function App() {
   const urlQuestions = "http://localhost:8080/api/questions/all/closed";
   // const urlAddQuestions = "http://localhost:5000/questions";
   const [questions, setQuestions] = useState([]);
+  const [chosenQuestions, setChosenQuestions] = useState([])
 
   // Load questions from server
   useEffect(() => {
@@ -72,7 +73,7 @@ function App() {
             </div>
           </div>
           <div className='container questions' >
-            <ChosenQuestions />
+            <ChosenQuestions questions={chosenQuestions} setQuestions={setChosenQuestions} />
           </div>
         </div>
       </div>
