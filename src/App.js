@@ -9,6 +9,7 @@ import AddTestForm from "./components/AddTestForm";
 function App() {
   const urlAddQuestions = "http://localhost:8080/api/questions/save";
   const urlQuestions = "http://localhost:8080/api/questions/all/closed";
+  const urlAddTest = "http://localhost:8080/api/tests/add"
   // const urlAddQuestions = "http://localhost:5000/questions";
   const [questions, setQuestions] = useState([]);
   const [chosenQuestions, setChosenQuestions] = useState([])
@@ -62,6 +63,23 @@ function App() {
     }
   }
 
+  const addTest = async () => {
+    const newTest = {
+      questionsId: chosenQuestions.map(q => q.questionId),
+      teacherId: 1,
+      endDate: '2018-03-29T13:34:00.000',
+      startDate: '2018-03-29T15:34:00.000'
+    }
+
+    console.log(`sending data: ${JSON.stringify((newTest))}`)
+
+    const res = await fetch(urlAddTest, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(newTest),
+    })
+  }
+
   return (
     <DndProvider backend={HTML5Backend}>
       <div className="App">
@@ -76,7 +94,7 @@ function App() {
             />
           </div>
           <div className='container questions createTest' >
-            <AddTestForm />
+            <AddTestForm addTest={addTest} />
             <QuestionDropArea
                 questions={chosenQuestions}
                 dropFunc={(movedQuestion) =>

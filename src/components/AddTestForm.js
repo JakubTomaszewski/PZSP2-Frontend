@@ -1,6 +1,14 @@
-const AddTestForm = () => {
+const AddTestForm = ({addTest}) => {
     return (
-        <h2>Utwórz test</h2>
+        <div className="header">
+            <h2>Utwórz test</h2>
+            <button
+                className="add-question-button btn"
+                onClick={addTest}
+            >
+                Wyślij
+            </button>
+        </div>
     )
 }
 
