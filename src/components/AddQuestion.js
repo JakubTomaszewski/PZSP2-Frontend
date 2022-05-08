@@ -2,16 +2,20 @@ import { useState } from "react";
 import React from "react";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
-import DeleteIcon from "@mui/icons-material/Delete";
 import SendIcon from "@mui/icons-material/Send";
 import TextField from "@mui/material/TextField";
+import Grid from "@mui/material/Grid";
+import NewAnswer from "./NewAnswer";
 
 const AddQuestion = ({ addQuestion }) => {
-  const [text, setText] = useState("");
+  const [questionContent, setText] = useState("");
+  const [answersList, setAnswersList] = useState([
+    { answerContent: "", isCorrect: false },
+  ]);
 
   function onSubmit(e) {
     e.preventDefault();
-    if (!text) {
+    if (!questionContent) {
       alert("Proszę dodać treść pytania");
       return;
     }
@@ -25,7 +29,7 @@ const AddQuestion = ({ addQuestion }) => {
     // alert("Przynajmniej jedna odpowiedź musi być poprawna")
     // }
 
-    addQuestion(text);
+    addQuestion(questionContent);
 
     setText("");
   }
@@ -40,43 +44,47 @@ const AddQuestion = ({ addQuestion }) => {
       noValidate
       autoComplete="off"
     >
-      <div>
-        <TextField
-          required
-          multiline
-          id="question-content"
-          label="Treść pytania"
-          variant="outlined"
-          value={text}
-          onChange={(e) => setText(e.target.value)}
-        />
-        <Button
-          variant="contained"
-          endIcon={<SendIcon />}
-          type="submit"
-          style={{ width: "90%" }}
-        >
-          Zapisz
-        </Button>
-      </div>
+      <Grid
+        container
+        spacing={1.5}
+        style={{
+          width: "90%",
+          margin: "auto",
+          padding: "0px",
+          alignItems: "center",
+        }}
+      >
+        <Grid item xs={12}>
+          <TextField
+            required
+            multiline
+            id="question-content"
+            label="Treść pytania"
+            variant="outlined"
+            value={questionContent}
+            onChange={(e) => setText(e.target.value)}
+            style={{
+              textAlign: "center",
+              padding: "0px 0px",
+              margin: "auto",
+              marginLeft: "0%",
+              width: "100%",
+            }}
+          />
+        </Grid>
+        <NewAnswer />
+        <Grid item xs={12}>
+          <Button
+            variant="contained"
+            endIcon={<SendIcon />}
+            type="submit"
+            style={{ width: "100%" }}
+          >
+            Zapisz
+          </Button>
+        </Grid>
+      </Grid>
     </Box>
-
-    // <form className="add-form" onSubmit={onSubmit}>
-    //   <div>
-    //     <label>Treść</label>
-    //     <input
-    //       type="text"
-    //       placeholder="Treść pytania"
-    //       value={text}
-    //       onChange={(e) => setText(e.target.value)}
-    //     ></input>
-    //     <input
-    //       className="save-question-btn"
-    //       type="submit"
-    //       value="Zapisz"
-    //     ></input>
-    //   </div>
-    // </form>
   );
 };
 
