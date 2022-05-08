@@ -73,7 +73,7 @@ function App() {
             </div>
           </div>
           <div className='container questions' >
-            <ChosenQuestions questions={chosenQuestions} setQuestions={setChosenQuestions} />
+            <ChosenQuestions questions={questions} setQuestions={setQuestions} chosenQuestions={chosenQuestions} setChosenQuestions={setChosenQuestions}  />
           </div>
         </div>
       </div>

@@ -2,10 +2,10 @@ import React from "react";
 import Answer from "./Answer";
 import {useDrag} from "react-dnd";
 
-const Question = ({id, content, answers}) => {
+const Question = ({questionId, content, answers}) => {
   const [{}, dragRef] = useDrag({
       type: 'question',
-      item: {id, content, answers}
+      item: {questionId, content, answers}
   })
 
   return (

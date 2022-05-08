@@ -1,22 +1,24 @@
 import {useDrop} from "react-dnd";
 import Question from "./Question";
 
-const ChosenQuestions = ({questions, setQuestions}) => {
+const ChosenQuestions = ({questions, setQuestions, chosenQuestions, setChosenQuestions}) => {
     const [{}, dropRef] = useDrop({
         accept: 'question',
-        drop: (item) => {
-            const ids = questions.map(question => question.id)
-            console.log(`item dragged. has already been there: ${ids.includes(item.id)}`)
-            setQuestions(() => !ids.includes(item.id) ? [...questions, item] : questions)
+        drop: (question) => {
+            const ids = chosenQuestions.map(question => question.questionId)
+            console.log(ids)
+            console.log(`item dragged. has already been there: ${ids.includes(question.questionId)}`)
+            setChosenQuestions(() => !ids.includes(question.questionId) ? [...chosenQuestions, question] : chosenQuestions)
+            // setQuestions(questions.filter( question => question.questionId !== item.id))
         }
     })
 
     return (
         <div className='chosenQuestions' ref={dropRef}>
             <h2> Utwórz test </h2>
-            {questions.map((question) => (
+            {chosenQuestions.map((question) => (
                 <Question key={question.questionId}
-                          id={question.questionId}
+                          questionId={question.questionId}
                           content={question.content}
                           answers={question.answers} />
             ))}
