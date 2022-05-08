@@ -15,8 +15,9 @@ body {
   justify-content: space-between;
 }
 
-.chosenQuestions {
+.questionDropArea {
   height: 100%;
+  width: 100%;
 }
 
 .btn {

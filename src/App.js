@@ -1,13 +1,12 @@
 import "./App.css";
-import Questions from "./components/Questions";
-import AddQuestion from "./components/AddQuestion";
 import { useState, useEffect } from "react";
-import ChosenQuestions from "./components/ChosenQuestions";
+import QuestionDropArea from "./components/QuestionDropArea";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
+import AddQuestionForm from "./components/AddQuestionForm";
+import AddTestForm from "./components/AddTestForm";
 
 function App() {
-  const [showAddQuestion, setShowAddQuestion] = useState(false);
   const urlAddQuestions = "http://localhost:8080/api/questions/save";
   const urlQuestions = "http://localhost:8080/api/questions/all/closed";
   // const urlAddQuestions = "http://localhost:5000/questions";
@@ -51,29 +50,38 @@ function App() {
     // setQuestions([...questions, data]);
   };
 
+  const moveQuestion = (fromList, setFromList, toList, setToList, movedQuestion) => {
+    const ids = toList.map(q => q.questionId)
+    console.log(ids)
+    const isAlreadyOnList = ids.includes(movedQuestion.questionId)
+    console.log(`item dragged. has already been there: ${isAlreadyOnList}`)
+
+    if (!isAlreadyOnList) {
+      setToList([...toList, movedQuestion])
+      setFromList(fromList.filter( q => q.questionId !== movedQuestion.questionId))
+    }
+  }
+
   return (
     <DndProvider backend={HTML5Backend}>
       <div className="App">
-        <div className="container tags-box"></div>
+        {/*<div className="container tags-box"></div>*/}
         <div className='dragndropArea'>
-          <div className="container questions">
-            <header className="header">
-              <h2>Pytania</h2>
-              <button
-                className="add-question-button btn"
-                onClick={() => setShowAddQuestion(!showAddQuestion)}
-                // showAddQuestion={showAddQuestion}
-              >
-                Dodaj pytanie
-              </button>
-            </header>
-            <div className='existingQuestions'>
-              {showAddQuestion && <AddQuestion addQuestion={addQuestion} />}
-              <Questions questions={questions} />
-            </div>
+          <div className="container questions existingQuestions">
+            <AddQuestionForm addQuestion={addQuestion} />
+            <QuestionDropArea
+                questions={questions}
+                dropFunc={(movedQuestion) =>
+                    moveQuestion(chosenQuestions, setChosenQuestions, questions, setQuestions, movedQuestion)}
+            />
           </div>
-          <div className='container questions' >
-            <ChosenQuestions questions={questions} setQuestions={setQuestions} chosenQuestions={chosenQuestions} setChosenQuestions={setChosenQuestions}  />
+          <div className='container questions createTest' >
+            <AddTestForm />
+            <QuestionDropArea
+                questions={chosenQuestions}
+                dropFunc={(movedQuestion) =>
+                    moveQuestion(questions, setQuestions, chosenQuestions, setChosenQuestions, movedQuestion)}
+            />
           </div>
         </div>
       </div>
