@@ -10,11 +10,14 @@ const Question = ({questionId, content, answers}) => {
 
   return (
     <div className="question container" ref={dragRef}>
+      <div className="question-text">
       {content}
+      </div>
       <div className="answer-section">
-        {answers.map((answer) => (
+        <Answers answers={answers}/>
+        {/* {answers.map((answer) => (
           <Answer key={answer.answerId} answer={answer} />
-        ))}
+        ))} */}
       </div>
     </div>
   );

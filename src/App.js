@@ -19,7 +19,6 @@ function App() {
   useEffect(() => {
     const getQuestions = async () => {
       const questionsFromServer = await fetchQuestions();
-      console.log(questionsFromServer);
       setQuestions(questionsFromServer);
     };
 
@@ -32,14 +31,14 @@ function App() {
     return data;
   };
 
-  const addQuestion = async (questionText) => {
+  const addQuestion = async (question) => {
     const newQuestion = {
       courseCode: "A04",
       type: "c",
-      content: questionText,
+      content: question.content,
       teacherId: 1,
-      answers: ["Odp1", "Odp2", "Odp3", "Odp4"],
-      areCorrect: [true, false, false, false],
+      answers: question.answers,
+      areCorrect: question.areCorrect,
     };
 
     const res = await fetch(urlAddQuestions, {
@@ -47,9 +46,6 @@ function App() {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(newQuestion),
     });
-
-    // const data = await res.json();
-    // setQuestions([...questions, data]);
   };
 
   const moveQuestion = (fromList, setFromList, toList, setToList, movedQuestion) => {
