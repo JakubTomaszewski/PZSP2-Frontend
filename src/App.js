@@ -5,6 +5,7 @@ import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import AddQuestionForm from "./components/AddQuestionForm";
 import AddTestForm from "./components/AddTestForm";
+import React from 'react';
 
 function App() {
   const urlAddQuestions = "http://localhost:8080/api/questions/save";

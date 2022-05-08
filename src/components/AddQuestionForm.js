@@ -1,3 +1,4 @@
+import React from 'react';
 import AddQuestion from "./AddQuestion";
 import {useState} from "react";
 
