@@ -9,11 +9,11 @@ import NewAnswer from "./NewAnswer";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import IconButton from "@mui/material/IconButton";
 
-const NEW_ANSWER = { content: "", isCorrect: false };
-
 const AddQuestion = ({ addQuestion }) => {
   const [questionContent, setText] = useState("");
-  const [answersList, setAnswersList] = useState([NEW_ANSWER]);
+  const [answersList, setAnswersList] = useState([
+    { content: "", isCorrect: false },
+  ]);
 
   function onSubmit(e) {
     e.preventDefault();
@@ -22,22 +22,41 @@ const AddQuestion = ({ addQuestion }) => {
       return;
     }
 
-    // if closed && answers.length() < 2 {
-    // alert("Proszę dodać odpowiedzi);
-    // return;
-    // }
+    const question = {
+      content: questionContent,
+      answers: answersList.map((question) => question.content),
+      areCorrect: answersList.map((question) => question.isCorrect),
+      closed: true,
+    };
 
-    // if sum(areCorrect) <= 0 {
-    // alert("Przynajmniej jedna odpowiedź musi być poprawna")
-    // }
+    // At least 2 answers
+    if (question.closed && question.answers.length < 2) {
+      alert("Proszę dodać więcej odpowiedzi");
+      return;
+    }
 
-    addQuestion(questionContent);
+    // At least one correct answer
+    if (!question.areCorrect.some((ans) => ans === true)) {
+      alert("Przynajmniej jedna odpowiedź musi być poprawna");
+      return;
+    }
+
+    // No blank answers
+    if (question.answers.some((ans) => ans === "")) {
+      alert("Odpowiedzi nie mogą być puste");
+      return;
+    }
+
+    addQuestion(question);
 
     setText("");
+    setAnswersList([{ content: "", isCorrect: false }]);
   }
 
   function handleCheck(index) {
-    answersList.at(index)["isCorrect"] = !answersList.at(index)["isCorrect"];
+    const newAnswerList = [...answersList];
+    newAnswerList[index]["isCorrect"] = !newAnswerList[index]["isCorrect"];
+    setAnswersList(newAnswerList);
   }
 
   function handleRemove(index) {
@@ -47,7 +66,13 @@ const AddQuestion = ({ addQuestion }) => {
   }
 
   function addNewAnswer() {
-    setAnswersList([...answersList, NEW_ANSWER]);
+    setAnswersList([...answersList, { content: "", isCorrect: false }]);
+  }
+
+  function handleInput(content, index) {
+    const newAnswerList = [...answersList];
+    newAnswerList[index]["content"] = content;
+    setAnswersList(newAnswerList);
   }
 
   return (
@@ -96,6 +121,7 @@ const AddQuestion = ({ addQuestion }) => {
             isCorrect={answer.isCorrect}
             handleCheck={handleCheck}
             handleRemove={handleRemove}
+            handleInput={handleInput}
           />
         ))}
         <Grid item xs={6}>

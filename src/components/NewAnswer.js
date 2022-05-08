@@ -12,11 +12,18 @@ const NewAnswer = ({
   isCorrect,
   handleRemove,
   handleCheck,
+  handleInput,
 }) => {
   const [checked, setChecked] = useState(isCorrect);
+  const [text, setText] = useState(content);
 
   function handleCheckbox(event) {
     setChecked(event.target.checked);
+  }
+
+  function handleInputEvent(event) {
+    setText(event.target.value);
+    handleInput(event.target.value, index);
   }
 
   return (
@@ -37,8 +44,8 @@ const NewAnswer = ({
           id="answer-content"
           label="Odpowiedź"
           variant="outlined"
-          value={content}
-          // onChange={(e) => setText(e.target.value)}
+          value={text}
+          onChange={(e) => handleInputEvent(e)}
           style={{
             textAlign: "center",
             padding: "0px 0px",
