@@ -1,5 +1,10 @@
 import { useState } from "react";
-import React from 'react';
+import React from "react";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import DeleteIcon from "@mui/icons-material/Delete";
+import SendIcon from "@mui/icons-material/Send";
+import TextField from "@mui/material/TextField";
 
 const AddQuestion = ({ addQuestion }) => {
   const [text, setText] = useState("");
@@ -11,29 +16,67 @@ const AddQuestion = ({ addQuestion }) => {
       return;
     }
 
+    // if closed && answers.length() < 2 {
+    // alert("Proszę dodać odpowiedzi);
+    // return;
+    // }
+
+    // if sum(areCorrect) <= 0 {
+    // alert("Przynajmniej jedna odpowiedź musi być poprawna")
+    // }
+
     addQuestion(text);
 
     setText("");
   }
 
   return (
-    <form className="add-form" onSubmit={onSubmit}>
+    <Box
+      onSubmit={onSubmit}
+      component="form"
+      sx={{
+        "& .MuiTextField-root": { m: 1, width: "90%" },
+      }}
+      noValidate
+      autoComplete="off"
+    >
       <div>
-        <label>Treść</label>
-        <input
-          type="text"
-          placeholder="Treść pytania"
+        <TextField
+          required
+          multiline
+          id="question-content"
+          label="Treść pytania"
+          variant="outlined"
           value={text}
           onChange={(e) => setText(e.target.value)}
-        ></input>
-        <input
-          className="save-question-btn"
+        />
+        <Button
+          variant="contained"
+          endIcon={<SendIcon />}
           type="submit"
-          value="Zapisz"
-          // onClick={() => addQuestion(text)}
-        ></input>
+          style={{ width: "90%" }}
+        >
+          Zapisz
+        </Button>
       </div>
-    </form>
+    </Box>
+
+    // <form className="add-form" onSubmit={onSubmit}>
+    //   <div>
+    //     <label>Treść</label>
+    //     <input
+    //       type="text"
+    //       placeholder="Treść pytania"
+    //       value={text}
+    //       onChange={(e) => setText(e.target.value)}
+    //     ></input>
+    //     <input
+    //       className="save-question-btn"
+    //       type="submit"
+    //       value="Zapisz"
+    //     ></input>
+    //   </div>
+    // </form>
   );
 };
 
