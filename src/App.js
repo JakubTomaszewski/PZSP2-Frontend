@@ -3,6 +3,8 @@ import "./App.css";
 import Questions from "./components/Questions";
 import AddQuestion from "./components/AddQuestion";
 import { useState, useEffect } from "react";
+import React from 'react';
+
 
 function App() {
   const [showAddQuestion, setShowAddQuestion] = useState(false);
@@ -15,7 +17,6 @@ function App() {
   useEffect(() => {
     const getQuestions = async () => {
       const questionsFromServer = await fetchQuestions();
-      console.log(questionsFromServer);
       setQuestions(questionsFromServer);
     };
 
@@ -43,9 +44,6 @@ function App() {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(newQuestion),
     });
-
-    // const data = await res.json();
-    // setQuestions([...questions, data]);
   };
 
   return (

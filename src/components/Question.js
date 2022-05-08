@@ -1,14 +1,14 @@
 import React from "react";
-import Answer from "./Answer";
+import Answers from "./Answers";
 
 const Question = (props) => {
   return (
     <div className="question container">
+      <div className="question-text">
       {props.question.content}
+      </div>
       <div className="answer-section">
-        {props.question.answers.map((answer) => (
-          <Answer key={answer.answerId} answer={answer} />
-        ))}
+      <Answers answers={props.question.answers}/>
       </div>
     </div>
   );
