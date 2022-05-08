@@ -6,12 +6,14 @@ import SendIcon from "@mui/icons-material/Send";
 import TextField from "@mui/material/TextField";
 import Grid from "@mui/material/Grid";
 import NewAnswer from "./NewAnswer";
+import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
+import IconButton from "@mui/material/IconButton";
+
+const NEW_ANSWER = { content: "", isCorrect: false };
 
 const AddQuestion = ({ addQuestion }) => {
   const [questionContent, setText] = useState("");
-  const [answersList, setAnswersList] = useState([
-    { answerContent: "", isCorrect: false },
-  ]);
+  const [answersList, setAnswersList] = useState([NEW_ANSWER]);
 
   function onSubmit(e) {
     e.preventDefault();
@@ -32,6 +34,20 @@ const AddQuestion = ({ addQuestion }) => {
     addQuestion(questionContent);
 
     setText("");
+  }
+
+  function handleCheck(index) {
+    answersList.at(index)["isCorrect"] = !answersList.at(index)["isCorrect"];
+  }
+
+  function handleRemove(index) {
+    const newAnswerList = [...answersList];
+    newAnswerList.splice(index, 1);
+    setAnswersList(newAnswerList);
+  }
+
+  function addNewAnswer() {
+    setAnswersList([...answersList, NEW_ANSWER]);
   }
 
   return (
@@ -72,8 +88,27 @@ const AddQuestion = ({ addQuestion }) => {
             }}
           />
         </Grid>
-        <NewAnswer />
-        <Grid item xs={12}>
+        {answersList.map((answer, i) => (
+          <NewAnswer
+            index={i}
+            key={i}
+            content={answer.content}
+            isCorrect={answer.isCorrect}
+            handleCheck={handleCheck}
+            handleRemove={handleRemove}
+          />
+        ))}
+        <Grid item xs={6}>
+          <Button
+            variant="contained"
+            endIcon={<AddCircleOutlineIcon />}
+            onClick={addNewAnswer}
+            style={{ width: "100%" }}
+          >
+            Dodaj odpowiedź
+          </Button>
+        </Grid>
+        <Grid item xs={6}>
           <Button
             variant="contained"
             endIcon={<SendIcon />}

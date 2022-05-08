@@ -2,15 +2,20 @@ import React from "react";
 import Grid from "@mui/material/Grid";
 import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
-import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import Checkbox from "@mui/material/Checkbox";
 import TextField from "@mui/material/TextField";
 import { useState } from "react";
 
-const NewAnswer = () => {
-  const [checked, setChecked] = useState(false);
+const NewAnswer = ({
+  index,
+  content,
+  isCorrect,
+  handleRemove,
+  handleCheck,
+}) => {
+  const [checked, setChecked] = useState(isCorrect);
 
-  function handleCheck(event) {
+  function handleCheckbox(event) {
     setChecked(event.target.checked);
   }
 
@@ -25,14 +30,14 @@ const NewAnswer = () => {
         alignItems: "center",
       }}
     >
-      <Grid item xs={8}>
+      <Grid item xs={9}>
         <TextField
           required
           multiline
           id="answer-content"
           label="Odpowiedź"
           variant="outlined"
-          // value={questionContent}
+          value={content}
           // onChange={(e) => setText(e.target.value)}
           style={{
             textAlign: "center",
@@ -46,20 +51,18 @@ const NewAnswer = () => {
       <Grid item xs={1}>
         <Checkbox
           checked={checked}
-          onChange={handleCheck}
+          onChange={(event) => {
+            handleCheck(index);
+            handleCheckbox(event);
+          }}
           color="success"
           size="medium"
           label="Poprawna"
         />
       </Grid>
       <Grid item xs={1}>
-        <IconButton size="large">
-          <AddCircleOutlineIcon />
-        </IconButton>
-      </Grid>
-      <Grid item xs={1}>
         <IconButton aria-label="delete" size="large">
-          <DeleteIcon />
+          <DeleteIcon onClick={() => handleRemove(index)} />
         </IconButton>
       </Grid>
     </Grid>
