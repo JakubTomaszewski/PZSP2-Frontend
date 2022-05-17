@@ -1,8 +1,15 @@
 import React from "react";
-import PropTypes from "prop-types";
+import Button from "@mui/material/Button";
 
 const Answer = ({ answer }) => {
-  return <button className="answer-button">{answer.content}</button>;
+  return(
+              <Button className="answer-button"
+            variant="contained"
+            style={{ width: "100%" , margin: "5px"}}
+            color="primary"
+          >
+            {answer.content}
+          </Button>)
 };
 
 export default Answer;

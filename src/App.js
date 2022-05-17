@@ -5,15 +5,15 @@ import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import AddQuestionForm from "./components/AddQuestionForm";
 import AddTestForm from "./components/AddTestForm";
-import React from 'react';
+import React from "react";
 
 function App() {
   const urlAddQuestions = "http://localhost:8080/api/questions/save";
   const urlQuestions = "http://localhost:8080/api/questions/all/closed";
-  const urlAddTest = "http://localhost:8080/api/tests/add"
+  const urlAddTest = "http://localhost:8080/api/tests/add";
   // const urlAddQuestions = "http://localhost:5000/questions";
   const [questions, setQuestions] = useState([]);
-  const [chosenQuestions, setChosenQuestions] = useState([])
+  const [chosenQuestions, setChosenQuestions] = useState([]);
 
   // Load questions from server
   useEffect(() => {
@@ -48,54 +48,76 @@ function App() {
     });
   };
 
-  const moveQuestion = (fromList, setFromList, toList, setToList, movedQuestion) => {
-    const ids = toList.map(q => q.questionId)
-    console.log(ids)
-    const isAlreadyOnList = ids.includes(movedQuestion.questionId)
-    console.log(`item dragged. has already been there: ${isAlreadyOnList}`)
+  const moveQuestion = (
+    fromList,
+    setFromList,
+    toList,
+    setToList,
+    movedQuestion
+  ) => {
+    const ids = toList.map((q) => q.questionId);
+    console.log(ids);
+    const isAlreadyOnList = ids.includes(movedQuestion.questionId);
+    console.log(`item dragged. has already been there: ${isAlreadyOnList}`);
 
     if (!isAlreadyOnList) {
-      setToList([...toList, movedQuestion])
-      setFromList(fromList.filter( q => q.questionId !== movedQuestion.questionId))
+      setToList([...toList, movedQuestion]);
+      setFromList(
+        fromList.filter((q) => q.questionId !== movedQuestion.questionId)
+      );
     }
-  }
+  };
 
   const addTest = async () => {
     const newTest = {
-      questionsId: chosenQuestions.map(q => q.questionId),
+      questionsId: chosenQuestions.map((q) => q.questionId),
       teacherId: 1,
-      endDate: '2018-03-29T13:34:00.000',
-      startDate: '2018-03-29T15:34:00.000'
-    }
+      endDate: "2018-03-29T13:34:00.000",
+      startDate: "2018-03-29T15:34:00.000",
+    };
 
-    console.log(`sending data: ${JSON.stringify((newTest))}`)
+    console.log(`sending data: ${JSON.stringify(newTest)}`);
 
     const res = await fetch(urlAddTest, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(newTest),
-    })
-  }
+    });
+  };
 
   return (
     <DndProvider backend={HTML5Backend}>
       <div className="App">
         {/*<div className="container tags-box"></div>*/}
-        <div className='dragndropArea'>
+        <div className="dragndropArea">
           <div className="container questions existingQuestions">
             <AddQuestionForm addQuestion={addQuestion} />
             <QuestionDropArea
-                questions={questions}
-                dropFunc={(movedQuestion) =>
-                    moveQuestion(chosenQuestions, setChosenQuestions, questions, setQuestions, movedQuestion)}
+              questions={questions}
+              dropFunc={(movedQuestion) =>
+                moveQuestion(
+                  chosenQuestions,
+                  setChosenQuestions,
+                  questions,
+                  setQuestions,
+                  movedQuestion
+                )
+              }
             />
           </div>
-          <div className='container questions createTest' >
+          <div className="container questions createTest">
             <AddTestForm addTest={addTest} />
             <QuestionDropArea
-                questions={chosenQuestions}
-                dropFunc={(movedQuestion) =>
-                    moveQuestion(questions, setQuestions, chosenQuestions, setChosenQuestions, movedQuestion)}
+              questions={chosenQuestions}
+              dropFunc={(movedQuestion) =>
+                moveQuestion(
+                  questions,
+                  setQuestions,
+                  chosenQuestions,
+                  setChosenQuestions,
+                  movedQuestion
+                )
+              }
             />
           </div>
         </div>

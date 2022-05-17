@@ -1,6 +1,5 @@
 import React from "react";
 import { useState } from "react";
-import React from "react";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import SendIcon from "@mui/icons-material/Send";
@@ -8,7 +7,6 @@ import TextField from "@mui/material/TextField";
 import Grid from "@mui/material/Grid";
 import NewAnswer from "./NewAnswer";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
-import IconButton from "@mui/material/IconButton";
 
 const AddQuestion = ({ addQuestion }) => {
   const [questionContent, setText] = useState("");
