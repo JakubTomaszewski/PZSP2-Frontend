@@ -1,5 +1,7 @@
+import React from 'react';
 import {useDrop} from "react-dnd";
 import Question from "./Question";
+
 
 const QuestionDropArea = ({questions, dropFunc}) => {
     const [{}, dropRef] = useDrop({

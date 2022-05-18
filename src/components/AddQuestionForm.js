@@ -1,22 +1,26 @@
+import React from "react";
 import AddQuestion from "./AddQuestion";
-import {useState} from "react";
+import { useState } from "react";
+import Button from "@mui/material/Button";
 
-const AddQuestionForm = ({addQuestion}) => {
-    const [showAddQuestion, setShowAddQuestion] = useState(false);
+const AddQuestionForm = ({ addQuestion }) => {
+  const [showAddQuestion, setShowAddQuestion] = useState(false);
 
-    return (
-        <div className="header">
-            <h2>Pytania</h2>
-            <button
-                className="add-question-button btn"
-                onClick={() => setShowAddQuestion(!showAddQuestion)}
-                // showAddQuestion={showAddQuestion}
-            >
-                Dodaj pytanie
-            </button>
-            {showAddQuestion && <AddQuestion addQuestion={addQuestion} />}
-        </div>
-    )
-}
+  return (
+    <div>
+      <div className="header">
+        <h2>Pytania</h2>
+        <Button
+        variant="contained"
+        color="success"
+          onClick={() => setShowAddQuestion(!showAddQuestion)}
+        >
+          Dodaj pytanie
+        </Button>
+      </div>
+      {showAddQuestion && <AddQuestion addQuestion={addQuestion} />}
+    </div>
+  );
+};
 
-export default AddQuestionForm
+export default AddQuestionForm;

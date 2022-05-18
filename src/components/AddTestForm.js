@@ -1,15 +1,15 @@
-const AddTestForm = ({addTest}) => {
-    return (
-        <div className="header">
-            <h2>Utwórz test</h2>
-            <button
-                className="add-question-button btn"
-                onClick={addTest}
-            >
-                Wyślij
-            </button>
-        </div>
-    )
-}
+import React from "react";
+import Button from "@mui/material/Button";
 
-export default AddTestForm
+const AddTestForm = ({ addTest }) => {
+  return (
+    <div className="header">
+      <h2>Utwórz test</h2>
+      <Button variant="contained" color="success" onClick={addTest}>
+        Wyślij
+      </Button>
+    </div>
+  );
+};
+
+export default AddTestForm;
