@@ -68,7 +68,16 @@ const NewAnswer = ({
         />
       </Grid>
       <Grid item xs={1}>
-        <IconButton aria-label="delete" size="large">
+        <IconButton
+          aria-label="delete"
+          size="large"
+          sx={{
+            "&:hover": {
+              backgroundColor: "primary",
+              opacity: [0.7, 0.8, 0.9],
+            },
+          }}
+        >
           <DeleteIcon onClick={() => handleRemove(index)} />
         </IconButton>
       </Grid>
