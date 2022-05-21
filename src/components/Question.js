@@ -6,7 +6,7 @@ import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 
-const Question = ({ questionId, content, answers }) => {
+const Question = ({ questionId, content, answers, deleteQuestion }) => {
   const [{}, dragRef] = useDrag({
     type: "question",
     item: { questionId, content, answers },
@@ -41,7 +41,10 @@ const Question = ({ questionId, content, answers }) => {
             },
           }}
         >
-          <DeleteIcon sx={{ color: "white" }} />
+          <DeleteIcon
+            sx={{ color: "white" }}
+            onClick={() => deleteQuestion(questionId)}
+          />
         </IconButton>
         <IconButton
           aria-label="edit"

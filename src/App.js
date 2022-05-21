@@ -8,10 +8,10 @@ import AddTestForm from "./components/AddTestForm";
 import React from "react";
 
 function App() {
-  const urlAddQuestions = "http://localhost:8080/api/questions/save";
-  const urlQuestions = "http://localhost:8080/api/questions/all/closed";
-  const urlAddTest = "http://localhost:8080/api/tests/add";
-  // const urlAddQuestions = "http://localhost:5000/questions";
+  const urlAddQuestions = "http://localhost:8080/api/questions";
+  const urlClosedQuestions = "http://localhost:8080/api/questions/all/closed";
+  const urlAddTest = "http://localhost:8080/api/tests";
+  const urlQuestions = "http://localhost:8080/api/questions";
   const [questions, setQuestions] = useState([]);
   const [chosenQuestions, setChosenQuestions] = useState([]);
 
@@ -26,7 +26,7 @@ function App() {
   }, []);
 
   const fetchQuestions = async () => {
-    const res = await fetch(urlQuestions);
+    const res = await fetch(urlClosedQuestions);
     const data = await res.json();
     return data;
   };
@@ -45,6 +45,15 @@ function App() {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(newQuestion),
+    });
+  };
+
+  const deleteQuestion = async (id) => {
+    console.log(`Deleting question with id: ${id}`);
+    console.log(`${urlQuestions}?id=${id}`);
+
+    const res = await fetch(`${urlQuestions}?id=${id}`, {
+      method: "DELETE",
     });
   };
 
@@ -103,6 +112,7 @@ function App() {
                   movedQuestion
                 )
               }
+              deleteQuestion={deleteQuestion}
             />
           </div>
           <div className="container questions createTest">
