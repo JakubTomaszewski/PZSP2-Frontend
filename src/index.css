@@ -54,6 +54,7 @@ body {
 
 .question {
     width: 90%;
+    min-height: 200px;
     color: white;
     margin: auto;
     margin-bottom: 20px;
@@ -64,30 +65,31 @@ body {
     border-radius: 7px;
     font-size: 18px;
     overflow: auto;
+    /* position: relative; */
 }
 
 .question-text {
-  width: 50%;
-  float: left;
+  /* width: 40%; */
+  /* float: left; */
+  display: inline-block;
 }
 
 .question-manage-panel {
-  margin-left: 10px;
-  /* border: solid black 2px; */
+  margin-left: 25%;
+  /* position: absolute; */
+  /* display: inline-block; */
 }
 
 .answer-section {
-  width: 50%;
-  float: right;
+  width: 100%;
+  display: inline-block;
 }
 
 .answer-button {
-  width: 90%;
   font-size: 13px;
   color: #ffffff;
   background-color: #105094;
   border-radius: 15px;
-  /* display: flex; */
   justify-content: flex-start;
   border: 2px solid #000000;
   cursor: pointer;
