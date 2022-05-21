@@ -1,26 +1,27 @@
-import React from 'react';
-import {useDrop} from "react-dnd";
+import React from "react";
+import { useDrop } from "react-dnd";
 import Question from "./Question";
 
+const QuestionDropArea = ({ questions, dropFunc, deleteQuestion }) => {
+  const [{}, dropRef] = useDrop({
+    accept: "question",
+    drop: dropFunc,
+  });
 
-const QuestionDropArea = ({questions, dropFunc, deleteQuestion}) => {
-    const [{}, dropRef] = useDrop({
-        accept: 'question',
-        drop: dropFunc
-    })
+  return (
+    <div className="questionDropArea" ref={dropRef}>
+      {questions.map((question) => (
+        <Question
+          key={question.questionId}
+          questionId={question.questionId}
+          type={question.type}
+          content={question.content}
+          answers={question.answers}
+          deleteQuestion={deleteQuestion}
+        />
+      ))}
+    </div>
+  );
+};
 
-    return (
-        <div className='questionDropArea' ref={dropRef}>
-            {questions.map((question) => (
-                <Question key={question.questionId}
-                          questionId={question.questionId}
-                          questionType={question.type}
-                          content={question.content}
-                          answers={question.answers}
-                          deleteQuestion={deleteQuestion} />
-            ))}
-        </div>
-    )
-}
-
-export default QuestionDropArea
+export default QuestionDropArea;

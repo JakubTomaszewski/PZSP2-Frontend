@@ -44,9 +44,6 @@ function App() {
   };
 
   const deleteQuestion = async (id) => {
-    console.log(`Deleting question with id: ${id}`);
-    console.log(`${urlQuestions}?id=${id}`);
-
     const res = await fetch(`${urlQuestions}?id=${id}`, {
       method: "DELETE",
     });
@@ -60,9 +57,7 @@ function App() {
     movedQuestion
   ) => {
     const ids = toList.map((q) => q.questionId);
-    console.log(ids);
     const isAlreadyOnList = ids.includes(movedQuestion.questionId);
-    console.log(`item dragged. has already been there: ${isAlreadyOnList}`);
 
     if (!isAlreadyOnList) {
       setToList([...toList, movedQuestion]);
@@ -79,8 +74,6 @@ function App() {
       endDate: "2018-03-29T13:34:00.000",
       startDate: "2018-03-29T15:34:00.000",
     };
-
-    console.log(`sending data: ${JSON.stringify(newTest)}`);
 
     const res = await fetch(urlAddTest, {
       method: "POST",

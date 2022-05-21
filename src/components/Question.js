@@ -7,16 +7,10 @@ import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 
-const Question = ({
-  questionId,
-  questionType,
-  content,
-  answers,
-  deleteQuestion,
-}) => {
+const Question = ({ questionId, type, content, answers, deleteQuestion }) => {
   const [{}, dragRef] = useDrag({
     type: "question",
-    item: { questionId, content, answers },
+    item: { questionId, type, content, answers },
   });
 
   return (
@@ -43,10 +37,10 @@ const Question = ({
           alignItems: "center",
         }}
       >
-        <Grid item xs={questionType === "c" ? 5 : 10}>
+        <Grid item xs={type === "c" ? 5 : 10}>
           <div className="question-text">{content}</div>
         </Grid>
-        <Grid item xs={questionType === "c" ? 5 : 0}>
+        <Grid item xs={type === "c" ? 5 : 0}>
           <div className="answer-section">
             <Answers answers={answers} />
           </div>
