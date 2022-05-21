@@ -9,7 +9,7 @@ import React from "react";
 
 function App() {
   const urlAddQuestions = "http://localhost:8080/api/questions";
-  const urlClosedQuestions = "http://localhost:8080/api/questions/all/closed";
+  const urlClosedQuestions = "http://localhost:8080/api/questions/all/";
   const urlAddTest = "http://localhost:8080/api/tests";
   const urlQuestions = "http://localhost:8080/api/questions";
   const [questions, setQuestions] = useState([]);
@@ -32,14 +32,9 @@ function App() {
   };
 
   const addQuestion = async (question) => {
-    const newQuestion = {
-      courseCode: "A04",
-      type: "c",
-      content: question.content,
-      teacherId: 1,
-      answers: question.answers,
-      areCorrect: question.areCorrect,
-    };
+    const newQuestion = question;
+    newQuestion.courseCode = "A04";
+    newQuestion.teacherId = 1;
 
     const res = await fetch(urlAddQuestions, {
       method: "POST",

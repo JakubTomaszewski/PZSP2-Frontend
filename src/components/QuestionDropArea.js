@@ -14,6 +14,7 @@ const QuestionDropArea = ({questions, dropFunc, deleteQuestion}) => {
             {questions.map((question) => (
                 <Question key={question.questionId}
                           questionId={question.questionId}
+                          questionType={question.type}
                           content={question.content}
                           answers={question.answers}
                           deleteQuestion={deleteQuestion} />
