@@ -47,9 +47,14 @@ const AddQuestion = ({ addQuestion }) => {
         return;
       }
 
-      // At least one correct answer
-      if (!question.areCorrect.some((ans) => ans === true)) {
-        alert("Przynajmniej jedna odpowiedź musi być poprawna");
+      // One answer true
+      if (
+        question.areCorrect.reduce(
+          (partialSum, element) => partialSum + element,
+          0
+        ) !== 1
+      ) {
+        alert("Jedna odpowiedź musi być poprawna");
         return;
       }
 
@@ -77,13 +82,13 @@ const AddQuestion = ({ addQuestion }) => {
   }
 
   function handleRemove(index) {
-    console.log('Removing answer with index: ' + index)
+    // console.log("Removing answer with index: " + index);
     const newAnswerList = [...answersList];
-    console.log("Before remove")
-    console.log(newAnswerList)
+    // console.log("Before remove");
+    console.log(newAnswerList);
     newAnswerList.splice(index, 1);
-    console.log("After remove")
-    console.log(newAnswerList)
+    // console.log("After remove");
+    // console.log(newAnswerList);
     setAnswersList(newAnswerList);
   }
 

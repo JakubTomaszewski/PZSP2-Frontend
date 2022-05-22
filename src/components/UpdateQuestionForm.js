@@ -10,6 +10,7 @@ import NewAnswer from "./NewAnswer";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 
 const UpdateQuestionForm = ({
+  questionId,
   type,
   content,
   answers,
@@ -29,6 +30,7 @@ const UpdateQuestionForm = ({
 
     // open type question
     let question = {
+      questionId: questionId,
       type: "o",
       content: questionContent,
     };
@@ -36,6 +38,7 @@ const UpdateQuestionForm = ({
     if (!openTypeQuestion) {
       // closed type question
       question = {
+        questionId: questionId,
         type: "c",
         content: questionContent,
         answers: answersList.map((question) => question.content),
@@ -49,9 +52,14 @@ const UpdateQuestionForm = ({
         return;
       }
 
-      // At least one correct answer
-      if (!question.areCorrect.some((ans) => ans === true)) {
-        alert("Przynajmniej jedna odpowiedź musi być poprawna");
+      // One answer true
+      if (
+        question.areCorrect.reduce(
+          (partialSum, element) => partialSum + element,
+          0
+        ) !== 1
+      ) {
+        alert("Jedna odpowiedź musi być poprawna");
         return;
       }
 
@@ -149,21 +157,21 @@ const UpdateQuestionForm = ({
           <Grid item xs={6}>
             <Button
               variant="contained"
-              endIcon={<SendIcon />}
-              type="submit"
-              style={{ width: "100%" }}
-            >
-              Zapisz
-            </Button>
-          </Grid>
-          <Grid item xs={6}>
-            <Button
-              variant="contained"
               color="error"
               onClick={() => cancelModify()}
               style={{ width: "100%", margin: "5px" }}
             >
               Anuluj
+            </Button>
+          </Grid>
+          <Grid item xs={6}>
+            <Button
+              variant="contained"
+              endIcon={<SendIcon />}
+              type="submit"
+              style={{ width: "100%" }}
+            >
+              Zapisz
             </Button>
           </Grid>
         </Grid>

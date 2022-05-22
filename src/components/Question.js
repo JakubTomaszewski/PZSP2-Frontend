@@ -9,7 +9,14 @@ import EditIcon from "@mui/icons-material/Edit";
 import Answers from "./Answers";
 import UpdateQuestionForm from "./UpdateQuestionForm";
 
-const Question = ({ questionId, type, content, answers, deleteQuestion }) => {
+const Question = ({
+  questionId,
+  type,
+  content,
+  answers,
+  deleteQuestion,
+  modifyQuestion,
+}) => {
   const [editingQuestion, setEditingQuestion] = useState(false);
   const [{}, dragRef] = useDrag({
     type: "question",
@@ -18,6 +25,7 @@ const Question = ({ questionId, type, content, answers, deleteQuestion }) => {
 
   function updateQuestion(question) {
     // PUT request
+    modifyQuestion(question);
     console.log(question);
     setEditingQuestion(false);
   }
@@ -92,6 +100,7 @@ const Question = ({ questionId, type, content, answers, deleteQuestion }) => {
         </Grid>
       ) : (
         <UpdateQuestionForm
+          questionId={questionId}
           type={type}
           content={content}
           answers={answers}

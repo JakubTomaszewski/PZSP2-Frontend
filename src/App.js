@@ -49,6 +49,29 @@ function App() {
     });
   };
 
+  const modifyQuestion = async (question) => {
+    const newQuestion = question;
+    newQuestion.courseCode = "A04";
+    newQuestion.teacherId = 1;
+
+    const res = await fetch(`${urlQuestions}?id=${newQuestion.questionId}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(newQuestion),
+    })
+      .then((response) => response.json())
+      .then((modifiedQuestion) => replaceQuestion(modifiedQuestion));
+  };
+
+  const replaceQuestion = (updatedQuestion) => {
+    const updatedQuestionIndex = questions.findIndex((question) => {
+      return question.questionId === updatedQuestion.questionId;
+    });
+    const updatedQuestions = [...questions];
+    updatedQuestions[updatedQuestionIndex] = updatedQuestion;
+    setQuestions(updatedQuestions);
+  };
+
   const moveQuestion = (
     fromList,
     setFromList,
@@ -101,6 +124,7 @@ function App() {
                 )
               }
               deleteQuestion={deleteQuestion}
+              modifyQuestion={modifyQuestion}
             />
           </div>
           <div className="container questions createTest">

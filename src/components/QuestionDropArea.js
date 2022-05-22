@@ -2,7 +2,7 @@ import React from "react";
 import { useDrop } from "react-dnd";
 import Question from "./Question";
 
-const QuestionDropArea = ({ questions, dropFunc, deleteQuestion }) => {
+const QuestionDropArea = ({ questions, dropFunc, deleteQuestion, modifyQuestion }) => {
   const [{}, dropRef] = useDrop({
     accept: "question",
     drop: dropFunc,
@@ -18,6 +18,7 @@ const QuestionDropArea = ({ questions, dropFunc, deleteQuestion }) => {
           content={question.content}
           answers={question.answers}
           deleteQuestion={deleteQuestion}
+          modifyQuestion={modifyQuestion}
         />
       ))}
     </div>

@@ -14,8 +14,8 @@ const NewAnswer = ({
   handleCheck,
   handleInput,
 }) => {
-  const [checked, setChecked] = useState(isCorrect);
   const [text, setText] = useState(content);
+  const [checked, setChecked] = useState(isCorrect);
 
   function handleCheckbox(event) {
     setChecked(event.target.checked);
