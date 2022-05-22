@@ -8,15 +8,17 @@ import TextField from "@mui/material/TextField";
 import Grid from "@mui/material/Grid";
 import NewAnswer from "./NewAnswer";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Switch from "@mui/material/Switch";
 
-const AddQuestion = ({ addQuestion }) => {
-  const [openTypeQuestion, setOpenTypeQuestion] = useState(false);
-  const [questionContent, setText] = useState("");
-  const [answersList, setAnswersList] = useState([
-    { content: "", isCorrect: false },
-  ]);
+const UpdateQuestionForm = ({
+  type,
+  content,
+  answers,
+  updateQuestion,
+  cancelModify,
+}) => {
+  const openTypeQuestion = type === "o";
+  const [questionContent, setText] = useState(content);
+  const [answersList, setAnswersList] = useState(answers);
 
   function onSubmit(e) {
     e.preventDefault();
@@ -60,14 +62,10 @@ const AddQuestion = ({ addQuestion }) => {
       }
     }
 
-    addQuestion(question);
+    updateQuestion(question);
 
-    setAnswersList([{ content: "", isCorrect: false }]);
-    setText("");
-  }
-
-  function handleSwitch(event) {
-    setOpenTypeQuestion(event.target.checked);
+    // setAnswersList([{ content: "", isCorrect: false }]);
+    // setText("");
   }
 
   function handleCheck(index) {
@@ -77,13 +75,8 @@ const AddQuestion = ({ addQuestion }) => {
   }
 
   function handleRemove(index) {
-    console.log('Removing answer with index: ' + index)
     const newAnswerList = [...answersList];
-    console.log("Before remove")
-    console.log(newAnswerList)
     newAnswerList.splice(index, 1);
-    console.log("After remove")
-    console.log(newAnswerList)
     setAnswersList(newAnswerList);
   }
 
@@ -107,7 +100,7 @@ const AddQuestion = ({ addQuestion }) => {
       noValidate
       autoComplete="off"
     >
-      <FormControlLabel
+      {/* <FormControlLabel
         style={{
           alignItems: "center",
           marginLeft: "5%",
@@ -120,7 +113,7 @@ const AddQuestion = ({ addQuestion }) => {
           />
         }
         label="Pytanie otwarte"
-      />
+      /> */}
 
       {openTypeQuestion ? (
         <Grid
@@ -139,6 +132,7 @@ const AddQuestion = ({ addQuestion }) => {
               multiline
               id="question-content"
               label="Treść pytania"
+              defaultValue={content}
               variant="outlined"
               value={questionContent}
               onChange={(e) => setText(e.target.value)}
@@ -152,7 +146,7 @@ const AddQuestion = ({ addQuestion }) => {
               }}
             />
           </Grid>
-          <Grid item xs={12}>
+          <Grid item xs={6}>
             <Button
               variant="contained"
               endIcon={<SendIcon />}
@@ -160,6 +154,16 @@ const AddQuestion = ({ addQuestion }) => {
               style={{ width: "100%" }}
             >
               Zapisz
+            </Button>
+          </Grid>
+          <Grid item xs={6}>
+            <Button
+              variant="contained"
+              color="error"
+              onClick={() => cancelModify()}
+              style={{ width: "100%", margin: "5px" }}
+            >
+              Anuluj
             </Button>
           </Grid>
         </Grid>
@@ -205,12 +209,12 @@ const AddQuestion = ({ addQuestion }) => {
             />
           ))}
           <Grid item xs={6}>
-            <Typography noWrap>
+            <Typography>
               <Button
                 variant="contained"
                 endIcon={<AddCircleOutlineIcon />}
                 onClick={addNewAnswer}
-                style={{ width: "100%" }}
+                style={{ width: "100%", minWidt: "100%" }}
               >
                 Dodaj odpowiedź
               </Button>
@@ -219,9 +223,17 @@ const AddQuestion = ({ addQuestion }) => {
           <Grid item xs={6}>
             <Button
               variant="contained"
+              color="error"
+              onClick={() => cancelModify()}
+              style={{ width: "100%", margin: "5px" }}
+            >
+              Anuluj
+            </Button>
+            <Button
+              variant="contained"
               endIcon={<SendIcon />}
               type="submit"
-              style={{ width: "100%" }}
+              style={{ width: "100%", margin: "5px" }}
             >
               Zapisz
             </Button>
@@ -232,4 +244,4 @@ const AddQuestion = ({ addQuestion }) => {
   );
 };
 
-export default AddQuestion;
+export default UpdateQuestionForm;
