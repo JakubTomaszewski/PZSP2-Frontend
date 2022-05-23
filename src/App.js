@@ -6,6 +6,7 @@ import { HTML5Backend } from "react-dnd-html5-backend";
 import AddQuestionForm from "./components/AddQuestionForm";
 import AddTestForm from "./components/AddTestForm";
 import React from "react";
+import moment from "moment";
 
 function App() {
   const urlAddQuestions = "http://localhost:8080/api/questions";
@@ -14,6 +15,8 @@ function App() {
   const urlQuestions = "http://localhost:8080/api/questions";
   const [questions, setQuestions] = useState([]);
   const [chosenQuestions, setChosenQuestions] = useState([]);
+  const [dateStart, setDateStart] = useState (moment().format())
+  const [dateEnd, setDateEnd] = useState (moment().format())
 
   // Load questions from server
   useEffect(() => {
@@ -94,15 +97,17 @@ function App() {
     const newTest = {
       questionsId: chosenQuestions.map((q) => q.questionId),
       teacherId: 1,
-      endDate: "2018-03-29T13:34:00.000",
-      startDate: "2018-03-29T15:34:00.000",
+      endDate: dateEnd,
+      startDate: dateStart,
     };
+
+    console.log(JSON.stringify(newTest))
 
     const res = await fetch(urlAddTest, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(newTest),
-    });
+    })
   };
 
   return (
@@ -128,7 +133,12 @@ function App() {
             />
           </div>
           <div className="container questions createTest">
-            <AddTestForm addTest={addTest} />
+            <AddTestForm
+              addTest={addTest}
+              dateEnd={dateEnd}
+              dateStart={dateStart}
+              setDateStart={setDateStart}
+              setDateEnd={setDateEnd} />
             <QuestionDropArea
               questions={chosenQuestions}
               dropFunc={(movedQuestion) =>
