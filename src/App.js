@@ -156,7 +156,6 @@ function App() {
           </div>
         </div>
         <div className="viewingTests">
-          {/* <BrowseTests setRateSolution={[setRateSolution, rateSolution]} ></BrowseTests> */}
           <BrowseTests/>
         </div>
       </div>

@@ -1,7 +1,5 @@
-import Button from "@mui/material/Button";
-import { useState } from "react";
 import React from "react";
-import { SettingsRemoteOutlined } from "@mui/icons-material";
+import Button from "@mui/material/Button";
 
 const Solutions = (props) => {
 
