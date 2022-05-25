@@ -5,6 +5,7 @@ import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import AddQuestionForm from "./components/AddQuestionForm";
 import AddTestForm from "./components/AddTestForm";
+import BrowseTests from "./components/BrowseTests";
 import React from "react";
 import moment from "moment";
 
@@ -18,21 +19,22 @@ function App() {
   const [dateStart, setDateStart] = useState (moment().format())
   const [dateEnd, setDateEnd] = useState (moment().format())
 
+
   // Load questions from server
-  useEffect(() => {
-    const getQuestions = async () => {
-      const questionsFromServer = await fetchQuestions();
-      setQuestions(questionsFromServer);
-    };
+  // useEffect(() => {
+  //   const getQuestions = async () => {
+  //     const questionsFromServer = await fetchQuestions();
+  //     setQuestions(questionsFromServer);
+  //   };
 
-    getQuestions();
-  }, []);
+  //   getQuestions();
+  // }, []);
 
-  const fetchQuestions = async () => {
-    const res = await fetch(urlClosedQuestions);
-    const data = await res.json();
-    return data;
-  };
+  // const fetchQuestions = async () => {
+  //   const res = await fetch(urlClosedQuestions);
+  //   const data = await res.json();
+  //   return data;
+  // };
 
   const addQuestion = async (question) => {
     const newQuestion = question;
@@ -152,6 +154,10 @@ function App() {
               }
             />
           </div>
+        </div>
+        <div className="viewingTests">
+          {/* <BrowseTests setRateSolution={[setRateSolution, rateSolution]} ></BrowseTests> */}
+          <BrowseTests/>
         </div>
       </div>
     </DndProvider>
