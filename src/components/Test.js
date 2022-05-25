@@ -1,8 +1,8 @@
 import React from "react";
 import { useState } from "react";
-import Solutions from "./Solutions"
 import Button from "@mui/material/Button";
 import Grid from "@mui/material/Grid";
+import Solutions from "./Solutions"
 import Rating from "./Rating"
 
 const Test = (props) => {
@@ -37,7 +37,7 @@ const Test = (props) => {
 
     return (
         <div className="testrow" key={test.testId}>
-                <h4>{test.name}</h4>
+                <h3>{test.name}</h3>
                 <Grid className="test-grid">
                     <p>hasło: {test.password}</p>
                     <p>Rozpoczęcie: {test.start_date}</p>
@@ -45,9 +45,11 @@ const Test = (props) => {
                     <Button className="test-button"
                         variant="contained"
                         onClick={() => setShowReports(!showReports)}>
-                        Przesłane odpowiedzi</Button>
+                        Przesłane odpowiedzi
+                    </Button>
                 </Grid>
-                {rateSolution && <Rating solution={solutionRate} rateS={[rateSolution, setRateSolution]}></Rating>}
+                {rateSolution && <Rating
+                    solution={solutionRate}/>}
                 {showReports && <Solutions
                     solutions={solutions}
                     rateS={[rateSolution, setRateSolution]}
