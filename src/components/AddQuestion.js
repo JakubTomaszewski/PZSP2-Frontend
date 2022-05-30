@@ -10,10 +10,15 @@ import NewAnswer from "./NewAnswer";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Switch from "@mui/material/Switch";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import Select from "@mui/material/Select";
 
 const AddQuestion = ({ addQuestion }) => {
   const [openTypeQuestion, setOpenTypeQuestion] = useState(false);
   const [questionContent, setText] = useState("");
+  const [courseCode, setCourseCode] = useState("");
   const [answersList, setAnswersList] = useState([
     { content: "", isCorrect: false },
   ]);
@@ -102,6 +107,10 @@ const AddQuestion = ({ addQuestion }) => {
     setAnswersList(newAnswerList);
   }
 
+  function handleCourseSelect(event) {
+    setCourseCode(event.target.value);
+  }
+
   return (
     <Box
       onSubmit={onSubmit}
@@ -109,24 +118,51 @@ const AddQuestion = ({ addQuestion }) => {
       sx={{
         "& .MuiTextField-root": { m: 1, width: "90%" },
       }}
-      noValidate
       autoComplete="off"
     >
-      <FormControlLabel
+      <Grid
+        container
+        spacing={1.5}
         style={{
+          width: "90%",
+          margin: "auto",
+          padding: "0px",
           alignItems: "center",
-          marginLeft: "5%",
         }}
-        control={
-          <Switch
-            checked={openTypeQuestion}
-            onChange={handleSwitch}
-            inputProps={{ "aria-label": "controlled" }}
+      >
+        <Grid item xs={6}>
+          <FormControl fullWidth>
+            <InputLabel>Kod kursu</InputLabel>
+            <Select
+              value={courseCode}
+              label="Kod kursu"
+              onChange={handleCourseSelect}
+              required
+            >
+              <MenuItem value={10}>Ten</MenuItem>
+              <MenuItem value={20}>Twenty</MenuItem>
+              <MenuItem value={30}>Thirty</MenuItem>
+            </Select>
+          </FormControl>
+        </Grid>
+        <Grid item xs={6}>
+          {" "}
+          <FormControlLabel
+            style={{
+              alignItems: "center",
+              marginLeft: "5%",
+            }}
+            control={
+              <Switch
+                checked={openTypeQuestion}
+                onChange={handleSwitch}
+                inputProps={{ "aria-label": "controlled" }}
+              />
+            }
+            label="Pytanie otwarte"
           />
-        }
-        label="Pytanie otwarte"
-      />
-
+        </Grid>
+      </Grid>
       {openTypeQuestion ? (
         <Grid
           container
@@ -138,6 +174,8 @@ const AddQuestion = ({ addQuestion }) => {
             alignItems: "center",
           }}
         >
+          <Grid item xs={6}></Grid>
+          <Grid item xs={6}></Grid>
           <Grid item xs={12}>
             <TextField
               required
