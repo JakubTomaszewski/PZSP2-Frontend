@@ -3,7 +3,7 @@ import AddQuestion from "./AddQuestion";
 import { useState } from "react";
 import Button from "@mui/material/Button";
 
-const AddQuestionForm = ({ addQuestion }) => {
+const AddQuestionForm = ({ addQuestion, fetchCourseCodes }) => {
   const [showAddQuestion, setShowAddQuestion] = useState(false);
 
   return (
@@ -18,7 +18,7 @@ const AddQuestionForm = ({ addQuestion }) => {
           Dodaj pytanie
         </Button>
       </div>
-      {showAddQuestion && <AddQuestion addQuestion={addQuestion} />}
+      {showAddQuestion && <AddQuestion addQuestion={addQuestion} fetchCourseCodes={fetchCourseCodes} />}
     </div>
   );
 };

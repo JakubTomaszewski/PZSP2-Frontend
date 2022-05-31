@@ -13,10 +13,11 @@ function App() {
   const urlClosedQuestions = "http://localhost:8080/api/questions/all/";
   const urlAddTest = "http://localhost:8080/api/tests";
   const urlQuestions = "http://localhost:8080/api/questions";
+  const urlCourseCodes = "http://localhost:8080/api/courses/all/";
   const [questions, setQuestions] = useState([]);
   const [chosenQuestions, setChosenQuestions] = useState([]);
-  const [dateStart, setDateStart] = useState (moment().format())
-  const [dateEnd, setDateEnd] = useState (moment().format())
+  const [dateStart, setDateStart] = useState(moment().format());
+  const [dateEnd, setDateEnd] = useState(moment().format());
 
   // Load questions from server
   useEffect(() => {
@@ -34,9 +35,14 @@ function App() {
     return data;
   };
 
+  const fetchCourseCodes = async () => {
+    const res = await fetch(urlCourseCodes);
+    const data = await res.json();
+    return data;
+  };
+
   const addQuestion = async (question) => {
     const newQuestion = question;
-    newQuestion.courseCode = "A04";
     newQuestion.teacherId = 1;
 
     const res = await fetch(urlAddQuestions, {
@@ -54,7 +60,6 @@ function App() {
 
   const modifyQuestion = async (question) => {
     const newQuestion = question;
-    newQuestion.courseCode = "A04";
     newQuestion.teacherId = 1;
 
     const res = await fetch(`${urlQuestions}?id=${newQuestion.questionId}`, {
@@ -101,13 +106,11 @@ function App() {
       startDate: dateStart,
     };
 
-    console.log(JSON.stringify(newTest))
-
     const res = await fetch(urlAddTest, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(newTest),
-    })
+    });
   };
 
   return (
@@ -116,7 +119,10 @@ function App() {
         {/*<div className="container tags-box"></div>*/}
         <div className="dragndropArea">
           <div className="container questions existingQuestions">
-            <AddQuestionForm addQuestion={addQuestion} />
+            <AddQuestionForm
+              addQuestion={addQuestion}
+              fetchCourseCodes={fetchCourseCodes}
+            />
             <QuestionDropArea
               questions={questions}
               dropFunc={(movedQuestion) =>
@@ -138,7 +144,8 @@ function App() {
               dateEnd={dateEnd}
               dateStart={dateStart}
               setDateStart={setDateStart}
-              setDateEnd={setDateEnd} />
+              setDateEnd={setDateEnd}
+            />
             <QuestionDropArea
               questions={chosenQuestions}
               dropFunc={(movedQuestion) =>

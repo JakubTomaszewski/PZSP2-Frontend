@@ -10,15 +10,13 @@ import NewAnswer from "./NewAnswer";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Switch from "@mui/material/Switch";
-import InputLabel from "@mui/material/InputLabel";
-import MenuItem from "@mui/material/MenuItem";
-import FormControl from "@mui/material/FormControl";
-import Select from "@mui/material/Select";
+import CourseSwitch from "./CourseSwitch";
 
-const AddQuestion = ({ addQuestion }) => {
+const AddQuestion = ({ addQuestion, fetchCourseCodes }) => {
   const [openTypeQuestion, setOpenTypeQuestion] = useState(false);
   const [questionContent, setText] = useState("");
   const [courseCode, setCourseCode] = useState("");
+  const [courseCodeList, setCourseCodeList] = useState([]);
   const [answersList, setAnswersList] = useState([
     { content: "", isCorrect: false },
   ]);
@@ -33,6 +31,7 @@ const AddQuestion = ({ addQuestion }) => {
     // open type question
     let question = {
       type: "o",
+      courseCode: courseCode,
       content: questionContent,
     };
 
@@ -40,6 +39,7 @@ const AddQuestion = ({ addQuestion }) => {
       // closed type question
       question = {
         type: "c",
+        courseCode: courseCode,
         content: questionContent,
         answers: answersList.map((question) => question.content),
         areCorrect: answersList.map((question) => question.isCorrect),
@@ -86,6 +86,11 @@ const AddQuestion = ({ addQuestion }) => {
     setAnswersList(newAnswerList);
   }
 
+  const getCourseCodes = async () => {
+    let courseCodes = await fetchCourseCodes();
+    setCourseCodeList(courseCodes);
+  };
+
   function handleRemove(index) {
     // console.log("Removing answer with index: " + index);
     const newAnswerList = [...answersList];
@@ -131,19 +136,12 @@ const AddQuestion = ({ addQuestion }) => {
         }}
       >
         <Grid item xs={6}>
-          <FormControl fullWidth>
-            <InputLabel>Kod kursu</InputLabel>
-            <Select
-              value={courseCode}
-              label="Kod kursu"
-              onChange={handleCourseSelect}
-              required
-            >
-              <MenuItem value={10}>Ten</MenuItem>
-              <MenuItem value={20}>Twenty</MenuItem>
-              <MenuItem value={30}>Thirty</MenuItem>
-            </Select>
-          </FormControl>
+          <CourseSwitch
+            courseCode={courseCode}
+            handleCourseSelect={handleCourseSelect}
+            getCourseCodes={getCourseCodes}
+            courseCodeList={courseCodeList}
+          />
         </Grid>
         <Grid item xs={6}>
           {" "}
