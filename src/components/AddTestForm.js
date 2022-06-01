@@ -12,6 +12,8 @@ const AddTestForm = ({
   setDateStart,
   dateEnd,
   setDateEnd,
+  testName,
+  setTestName
 }) => {
   return (
     <div>
@@ -65,6 +67,14 @@ const AddTestForm = ({
                 }}
               />
             </LocalizationProvider>
+          </Grid>
+          <Grid item xs={12} >
+            <TextField
+              outlined
+              label='Nazwa testu'
+              variant='outlined'
+              onChange={e => setTestName(e.target.value)}
+            />
           </Grid>
         </Grid>
       </Box>
