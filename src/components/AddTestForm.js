@@ -49,6 +49,7 @@ const AddTestForm = ({
               renderInput={(props) => <TextField {...props} />}
               label="Data rozpoczęcia"
               value={dateStart}
+              ampm={false}
               onChange={(newValue) => {
                 setDateStart(newValue);
               }}
@@ -61,6 +62,7 @@ const AddTestForm = ({
               renderInput={(props) => <TextField {...props} />}
               label="Data zakończenia"
               value={dateEnd}
+              ampm={false}
               onChange={(newValue) => {
                 setDateEnd(newValue);
               }}
