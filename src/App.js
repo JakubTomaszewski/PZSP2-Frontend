@@ -40,19 +40,6 @@ function App() {
     getTests();
   }, [])
 
-
-  const setSolutionsURL = (testId) => {
-    return `http://localhost:8080/api/solutions/test?id=${testId}`
-  }
-
-  const getSolutions = async () => {
-    try {
-      const id = 45
-      const res = await fetch(setSolutionsURL(id))
-      return await res.json()
-    } catch {return {}}
-  };
-
   // Load questions from server
   useEffect(() => {
     const getQuestions = async () => {
@@ -202,7 +189,6 @@ function App() {
           <Route exact path="/tests" element={
             <BrowseTests
               tests={tests}
-              getSolutions={getSolutions}
             />}/>
         </Routes>
       </BrowserRouter>

@@ -5,35 +5,24 @@ import Grid from "@mui/material/Grid";
 import Solutions from "./Solutions"
 import Rating from "./Rating"
 
-const Test = (props) => {
-    const test = props.test
+const Test = ({test}) => {
 
     const [showReports, setShowReports] = useState(false);
     const [rateSolution, setRateSolution] = useState(false);
     const [solutionRate, setSolutionRate] = useState({});
+    const [chosenSolutions, setChosenSolutions] = useState([]);
 
-    const [answeredQuestions1, setAnsweredQuestions1] = useState([
-        {questionContent: "Ile jest gwiazd na niebie", questionAnswers: [], studentAnswerContent:"Bardzo dużo", studentAnswer: null},
-        {questionContent: "Kiedy zaczeła się wojna?", questionAnswers: [
-            {answerId: 10, content: "1914", isCorrect: false},
-            {answerId: 11, content: "2022", isCorrect: true},
-            {answerId: 12, content: "1939", isCorrect: false}
-        ], studentAnswerContent:"1939", studentAnswer: null}
-    ])
+    const setSolutionsURL = (testId) => {
+        return `http://localhost:8080/api/solutions/test?id=${testId}`
+      }
 
-    const [answeredQuestions2, setAnsweredQuestions2] = useState([
-        {questionContent: "Ile jest gwiazd na niebie", questionAnswers: [], studentAnswerContent:"10 miliardów", studentAnswer: null},
-        {questionContent: "Kiedy zaczeła się wojna?", questionAnswers: [
-            {answerId: 10, content: "1914", isCorrect: false},
-            {answerId: 11, content: "2022", isCorrect: true},
-            {answerId: 12, content: "1939", isCorrect: false}
-        ], studentAnswerContent:"2022", studentAnswer: null}
-    ])
-
-    const [solutions, setSolutions] = useState([
-        {studentName: "Kamil", studentSurname: "Kot", studentId:"103103", studentSolutions: answeredQuestions1},
-        {studentName: "Andrzej", studentSurname: "Robak", studentId:"567234", studentSolutions: answeredQuestions2}
-    ])
+      const setSolutions = async (testId) => {
+        try {
+          const res = await fetch(setSolutionsURL(testId))
+          setChosenSolutions(await res.json())
+          return await res.json()
+        } catch {return {}}
+      };
 
     return (
         <div className="testrow" key={test.testId}>
@@ -43,15 +32,19 @@ const Test = (props) => {
                     <p>Rozpoczęcie: {test.startDate}</p>
                     <p>Zakończenie: {test.endDate}</p>
                     <Button className="test-button"
+                        key = {test.testId}
                         variant="contained"
-                        onClick={() => setShowReports(!showReports)}>
+                        onClick={() => {
+                            setSolutions(test.testId)
+                            setShowReports(!showReports)
+                        }}>
                         Przesłane odpowiedzi
                     </Button>
                 </Grid>
                 {rateSolution && <Rating
                     solution={solutionRate}/>}
                 {showReports && <Solutions
-                    solutions={solutions}
+                    solutions={chosenSolutions}
                     rateS={[rateSolution, setRateSolution]}
                     solutionR={[solutionRate, setSolutionRate]}/>}
             </div>
