@@ -6,7 +6,6 @@ import Solutions from "./Solutions"
 import Rating from "./Rating"
 
 const Test = ({test}) => {
-
     const [showReports, setShowReports] = useState(false);
     const [rateSolution, setRateSolution] = useState(false);
     const [solutionRate, setSolutionRate] = useState({});
@@ -19,14 +18,16 @@ const Test = ({test}) => {
       const setSolutions = async (testId) => {
         try {
           const res = await fetch(setSolutionsURL(testId))
-          setChosenSolutions(await res.json())
-          return await res.json()
+          const data = await res.json()
+          const tmpSolutions = data.solutions
+          setChosenSolutions(tmpSolutions)
+          return tmpSolutions
         } catch {return {}}
       };
 
     return (
         <div className="testrow" key={test.testId}>
-                <h3>{test.testId}</h3>
+                <h3>{test.name}</h3>
                 <Grid className="test-grid">
                     <p>hasło: {test.password}</p>
                     <p>Rozpoczęcie: {test.startDate}</p>
@@ -41,12 +42,13 @@ const Test = ({test}) => {
                         Przesłane odpowiedzi
                     </Button>
                 </Grid>
-                {rateSolution && <Rating
-                    solution={solutionRate}/>}
+
                 {showReports && <Solutions
                     solutions={chosenSolutions}
                     rateS={[rateSolution, setRateSolution]}
-                    solutionR={[solutionRate, setSolutionRate]}/>}
+                    setSolutionRate={setSolutionRate}/>}
+                {rateSolution && <Rating
+                    solution={solutionRate}/>}
             </div>
     );
 }
