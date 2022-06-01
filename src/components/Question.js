@@ -8,6 +8,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import Answers from "./Answers";
 import UpdateQuestionForm from "./UpdateQuestionForm";
+import {Typography} from "@mui/material";
 
 const Question = ({
   questionId,
@@ -50,7 +51,7 @@ const Question = ({
           spacing={0}
           style={{
             width: "100%",
-            margin: "auto",
+            margin: "0",
             padding: "0px",
             alignItems: "center",
           }}
@@ -96,6 +97,9 @@ const Question = ({
                 />
               </IconButton>
             </div>
+          </Grid>
+          <Grid item xs={12} marginTop={1}>
+            <Typography>{questionId}</Typography>
           </Grid>
         </Grid>
       ) : (
