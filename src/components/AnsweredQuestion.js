@@ -7,6 +7,19 @@ const AnsweredQuestion = ({question}) => {
         if (questionAns.studentAnswer == null) return (<p>{questionAns.studentAnswerContent}</p>)
         else return (<p>{questionAns.studentAnswer.content}</p>)
     }
+    function setPointsInput(questionAns) {
+        if (questionAns.studentAnswer == null) return (
+            <input type="number"
+            defaultValue={0}/>)
+        else {
+            if (questionAns.studentAnswer.isCorrect === true) return (
+                <input type="number"
+                value={1}/>)
+            else return (
+                <input type="number"
+                value={0}/>)
+        }
+    }
 
     return (
         <div className="answeredQuestion">
@@ -15,7 +28,7 @@ const AnsweredQuestion = ({question}) => {
                 {printAnswer(question)}
                 <form>
                     <label for="fname">Liczba punktów:</label>
-                    <input type="number" id="points" name="points"/>
+                    {setPointsInput(question)}
                 </form>
             </Grid>
         </div>

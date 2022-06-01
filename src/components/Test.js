@@ -38,6 +38,7 @@ const Test = ({test}) => {
                         onClick={() => {
                             setSolutions(test.testId)
                             setShowReports(!showReports)
+                            setRateSolution(false)
                         }}>
                         Przesłane odpowiedzi
                     </Button>
