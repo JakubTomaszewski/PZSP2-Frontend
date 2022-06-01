@@ -5,6 +5,7 @@ import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import AddQuestionForm from "./components/AddQuestionForm";
 import AddTestForm from "./components/AddTestForm";
+import MenuBar from "./components/MenuBar";
 import React from "react";
 import moment from "moment";
 
@@ -116,6 +117,7 @@ function App() {
   return (
     <DndProvider backend={HTML5Backend}>
       <div className="App">
+        <MenuBar panelName="Panel nauczyciela" />
         {/*<div className="container tags-box"></div>*/}
         <div className="dragndropArea">
           <div className="container questions existingQuestions">
