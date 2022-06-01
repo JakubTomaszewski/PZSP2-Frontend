@@ -1,15 +1,15 @@
 import React from "react";
 import AnsweredQuestion from "./AnsweredQuestion"
 
-const Rating = (props) => {
-    const student = props.solution
-    const answeredQuestions = props.solution.studentSolutions
+const Rating = ({solution}) => {
+    const studentSolutions = solution.studentSolutions
 
     return (
         <div className="rating">
-            <h5>{student.studentName} {student.studentSurname}</h5>
-            {answeredQuestions.map((ansQuestion) =>
-                <AnsweredQuestion ansQ={ansQuestion}/>
+            <h5>{solution.studentName} {solution.studentSurname}</h5>
+            <h6>Nr indeksu:{solution.studentId}</h6>
+            {studentSolutions.map((question) =>
+                <AnsweredQuestion question={question}/>
             )}
         </div>
     );
