@@ -18,6 +18,7 @@ function App() {
   const [questions, setQuestions] = useState([]);
   const [chosenQuestions, setChosenQuestions] = useState([]);
   const [dateStart, setDateStart] = useState(moment().format());
+  const [testName, setTestName] = useState('')
   const [dateEnd, setDateEnd] = useState(moment().format());
 
   // Load questions from server
@@ -106,6 +107,7 @@ function App() {
       teacherId: 1,
       endDate: dateEnd,
       startDate: dateStart,
+      name: testName
     };
 
     const res = await fetch(urlAddTest, {
@@ -148,6 +150,8 @@ function App() {
               dateStart={dateStart}
               setDateStart={setDateStart}
               setDateEnd={setDateEnd}
+              testName={testName}
+              setTestName={setTestName}
             />
             <QuestionDropArea
               questions={chosenQuestions}
