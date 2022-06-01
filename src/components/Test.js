@@ -25,13 +25,19 @@ const Test = ({test}) => {
         } catch {return {}}
       };
 
+      function formatDate(date) {
+          const myArray = date.split("T")
+          const HHMMSS = myArray[1].split(".")
+          return myArray[0] + "\nGodzina: " + HHMMSS[0]
+      }
+
     return (
         <div className="testrow" key={test.testId}>
                 <h3>{test.name}</h3>
                 <Grid className="test-grid">
                     <p>hasło: {test.password}</p>
-                    <p>Rozpoczęcie: {test.startDate}</p>
-                    <p>Zakończenie: {test.endDate}</p>
+                    <p>Początek: {formatDate(test.startDate)}</p>
+                    <p>Koniec: {formatDate(test.endDate)}</p>
                     <Button className="test-button"
                         key = {test.testId}
                         variant="contained"

@@ -243,7 +243,7 @@ text-align: center;
 .test-grid {
   display: flex;
   column-gap: 100px;
-  align-content: center;
+  justify-content: space-between;
 }
 
 .solution-table {
