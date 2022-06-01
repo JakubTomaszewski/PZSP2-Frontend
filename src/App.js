@@ -127,6 +127,7 @@ function App() {
             <AddQuestionForm
               addQuestion={addQuestion}
               fetchCourseCodes={fetchCourseCodes}
+              noQuestions={questions.length}
             />
             <QuestionDropArea
               questions={questions}
@@ -150,8 +151,8 @@ function App() {
               dateStart={dateStart}
               setDateStart={setDateStart}
               setDateEnd={setDateEnd}
-              testName={testName}
               setTestName={setTestName}
+              noQuestions={chosenQuestions.length}
             />
             <QuestionDropArea
               questions={chosenQuestions}
