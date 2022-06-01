@@ -261,7 +261,10 @@ table, th, td {
 }
 
 .answered-grid {
-  display: flex;
-  column-gap: 100px;
-  justify-content: space-between;
+  /* display: flex; */
+  column-gap: 10px;
+  padding-bottom: 20px;
+  column-width: 300px;
+  text-align: left;
+  justify-content: stretch;
 }

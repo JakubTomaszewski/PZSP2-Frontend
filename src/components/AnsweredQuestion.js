@@ -4,7 +4,7 @@ import Grid from "@mui/material/Grid";
 const AnsweredQuestion = ({question}) => {
 
     function printAnswer(questionAns) {
-        if (questionAns.studentAnswer == null) return (<p>{questionAns.studentAnswerContent}</p>)
+        if (questionAns.studentAnswer == null) return (<p>{questionAns.studentAnswerContent+" "}</p>)
         else return (<p>{questionAns.studentAnswer.content}</p>)
     }
     function setPointsInput(questionAns) {
@@ -12,12 +12,9 @@ const AnsweredQuestion = ({question}) => {
             <input type="number"
             defaultValue={0}/>)
         else {
-            if (questionAns.studentAnswer.isCorrect === true) return (
-                <input type="number"
-                value={1}/>)
-            else return (
-                <input type="number"
-                value={0}/>)
+            if (questionAns.studentAnswer.isCorrect === true)
+                return ( <label>Liczba punktów: 1</label>)
+            else return ( <label>Liczba punktów: 0</label>)
         }
     }
 
@@ -27,7 +24,6 @@ const AnsweredQuestion = ({question}) => {
                 <p>{question.questionContent}</p>
                 {printAnswer(question)}
                 <form>
-                    <label for="fname">Liczba punktów:</label>
                     {setPointsInput(question)}
                 </form>
             </Grid>
