@@ -23,8 +23,9 @@ function App() {
   // Load questions from server
   useEffect(() => {
     const getQuestions = async () => {
-      const questionsFromServer = await fetchQuestions();
-      setQuestions(questionsFromServer);
+      fetchQuestions()
+        .then(response => setQuestions(response))
+        .catch(err => console.log(`could not fetch questions: ${err}`))
     };
 
     getQuestions();
