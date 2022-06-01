@@ -11,14 +11,19 @@ const AddQuestionForm = ({ addQuestion, fetchCourseCodes }) => {
       <div className="header">
         <h2>Pytania</h2>
         <Button
-        variant="contained"
-        color="success"
+          variant="contained"
+          color="success"
           onClick={() => setShowAddQuestion(!showAddQuestion)}
         >
           Dodaj pytanie
         </Button>
       </div>
-      {showAddQuestion && <AddQuestion addQuestion={addQuestion} fetchCourseCodes={fetchCourseCodes} />}
+      {showAddQuestion && (
+        <AddQuestion
+          addQuestion={addQuestion}
+          fetchCourseCodes={fetchCourseCodes}
+        />
+      )}
     </div>
   );
 };
