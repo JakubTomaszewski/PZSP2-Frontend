@@ -28,6 +28,9 @@ const Solutions = ({solutions, rateS, setSolutionRate}) => {
                         Przesłane odpowiedzi</Button></td>
                  </tr>)}
                  </table>
+                 <Button>
+                    Eksportuj oceny
+                </Button>
         </div>
     );
 }

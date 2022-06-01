@@ -207,8 +207,8 @@ text-align: center;
   overflow: auto;
   border-radius: 15px;
   min-height: 70px;
-  min-width: 600px;
-  max-width: 900px;
+  min-width: 300px;
+  max-width: 400px;
   background: #dbdbdb;
   margin: 30px auto;
 }

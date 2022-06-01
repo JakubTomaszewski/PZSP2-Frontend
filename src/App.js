@@ -6,11 +6,9 @@ import { HTML5Backend } from "react-dnd-html5-backend";
 import AddQuestionForm from "./components/AddQuestionForm";
 import AddTestForm from "./components/AddTestForm";
 import BrowseTests from "./components/BrowseTests";
-import {BrowserRouter, Navigate, Route, Routes, useNavigate, Link } from "react-router-dom"
+import {BrowserRouter, Route, Routes } from "react-router-dom"
 import React from "react";
 import moment from "moment";
-import Button from "@mui/material/Button";
-// import { Button } from "bootstrap";
 
 function App() {
   const urlAddQuestions = "http://localhost:8080/api/questions";
@@ -141,7 +139,7 @@ function App() {
             <div className="App">
               <div className="viewingTests">
                 <li>
-                  <Link to="/tests">Sprawdź Testy</Link>
+                  <a href="/tests">Sprawdź Testy</a>
                 </li>
               </div>
               {/*<div className="container tags-box"></div>*/}
@@ -187,9 +185,7 @@ function App() {
             </div>
           }/>
           <Route exact path="/tests" element={
-            <BrowseTests
-              tests={tests}
-            />}/>
+            <BrowseTests tests={tests}/>}/>
         </Routes>
       </BrowserRouter>
 
