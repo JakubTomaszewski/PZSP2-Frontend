@@ -214,6 +214,15 @@ text-align: center;
 }
 
 .browseTests {
+  border: 2px solid #000000;
+  padding: 30px;
+  overflow: auto;
+  border-radius: 15px;
+  min-height: 70px;
+  min-width: 600px;
+  max-width: 1100px;
+  background: #dbdbdb;
+  margin: 30px auto;
   height: 100%;
   width: 100%;
 }
@@ -236,13 +245,10 @@ text-align: center;
   column-gap: 100px;
   align-content: center;
 }
-.test-button {
-  background-color: green;
-  border: 2px solid #000000;
-}
 
 .solution-table {
   width: 100;
+  width: 100%;
   margin-top: 15px;
 }
 

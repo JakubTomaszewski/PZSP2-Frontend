@@ -37,11 +37,11 @@ const Test = (props) => {
 
     return (
         <div className="testrow" key={test.testId}>
-                <h3>{test.name}</h3>
+                <h3>{test.testId}</h3>
                 <Grid className="test-grid">
                     <p>hasło: {test.password}</p>
-                    <p>Rozpoczęcie: {test.start_date}</p>
-                    <p>Zakończenie: {test.end_date}</p>
+                    <p>Rozpoczęcie: {test.startDate}</p>
+                    <p>Zakończenie: {test.endDate}</p>
                     <Button className="test-button"
                         variant="contained"
                         onClick={() => setShowReports(!showReports)}>

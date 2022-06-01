@@ -6,35 +6,68 @@ import { HTML5Backend } from "react-dnd-html5-backend";
 import AddQuestionForm from "./components/AddQuestionForm";
 import AddTestForm from "./components/AddTestForm";
 import BrowseTests from "./components/BrowseTests";
+import {BrowserRouter, Navigate, Route, Routes, useNavigate, Link } from "react-router-dom"
 import React from "react";
 import moment from "moment";
+import Button from "@mui/material/Button";
+// import { Button } from "bootstrap";
 
 function App() {
   const urlAddQuestions = "http://localhost:8080/api/questions";
   const urlClosedQuestions = "http://localhost:8080/api/questions/all/";
   const urlAddTest = "http://localhost:8080/api/tests";
   const urlQuestions = "http://localhost:8080/api/questions";
+  const urlAllTests = `http://localhost:8080/api/tests/all`;
   const [questions, setQuestions] = useState([]);
   const [chosenQuestions, setChosenQuestions] = useState([]);
   const [dateStart, setDateStart] = useState (moment().format())
   const [dateEnd, setDateEnd] = useState (moment().format())
+  const [tests, setTests] = useState([])
 
+  // Load tests from server
+  const fetchTests = async () => {
+    try {
+      const res = await fetch(urlAllTests)
+      return await res.json()
+    } catch {return {}}
+  };
+
+  useEffect(() => {
+    const getTests = async () => {
+      const testsFromServer = await fetchTests();
+      setTests(testsFromServer)
+    };
+    getTests();
+  }, [])
+
+
+  const setSolutionsURL = (testId) => {
+    return `http://localhost:8080/api/solutions/test?id=${testId}`
+  }
+
+  const getSolutions = async () => {
+    try {
+      const id = 45
+      const res = await fetch(setSolutionsURL(id))
+      return await res.json()
+    } catch {return {}}
+  };
 
   // Load questions from server
-  // useEffect(() => {
-  //   const getQuestions = async () => {
-  //     const questionsFromServer = await fetchQuestions();
-  //     setQuestions(questionsFromServer);
-  //   };
+  useEffect(() => {
+    const getQuestions = async () => {
+      const questionsFromServer = await fetchQuestions();
+      setQuestions(questionsFromServer);
+    };
 
-  //   getQuestions();
-  // }, []);
+    getQuestions();
+  }, []);
 
-  // const fetchQuestions = async () => {
-  //   const res = await fetch(urlClosedQuestions);
-  //   const data = await res.json();
-  //   return data;
-  // };
+  const fetchQuestions = async () => {
+    const res = await fetch(urlClosedQuestions);
+    const data = await res.json();
+    return data;
+  };
 
   const addQuestion = async (question) => {
     const newQuestion = question;
@@ -114,51 +147,66 @@ function App() {
 
   return (
     <DndProvider backend={HTML5Backend}>
-      <div className="App">
-        {/*<div className="container tags-box"></div>*/}
-        <div className="dragndropArea">
-          <div className="container questions existingQuestions">
-            <AddQuestionForm addQuestion={addQuestion} />
-            <QuestionDropArea
-              questions={questions}
-              dropFunc={(movedQuestion) =>
-                moveQuestion(
-                  chosenQuestions,
-                  setChosenQuestions,
-                  questions,
-                  setQuestions,
-                  movedQuestion
-                )
-              }
-              deleteQuestion={deleteQuestion}
-              modifyQuestion={modifyQuestion}
-            />
-          </div>
-          <div className="container questions createTest">
-            <AddTestForm
-              addTest={addTest}
-              dateEnd={dateEnd}
-              dateStart={dateStart}
-              setDateStart={setDateStart}
-              setDateEnd={setDateEnd} />
-            <QuestionDropArea
-              questions={chosenQuestions}
-              dropFunc={(movedQuestion) =>
-                moveQuestion(
-                  questions,
-                  setQuestions,
-                  chosenQuestions,
-                  setChosenQuestions,
-                  movedQuestion
-                )
-              }
-            />
-          </div>
-        </div>
-        <div className="viewingTests">
-          <BrowseTests/>
-        </div>
-      </div>
+      <BrowserRouter>
+        <Routes>
+          <Route exact path="/"
+          element={
+            <div className="App">
+              <div className="viewingTests">
+                <li>
+                  <Link to="/tests">Sprawdź Testy</Link>
+                </li>
+              </div>
+              {/*<div className="container tags-box"></div>*/}
+              <div className="dragndropArea">
+                <div className="container questions existingQuestions">
+                  <AddQuestionForm addQuestion={addQuestion} />
+                  <QuestionDropArea
+                    questions={questions}
+                    dropFunc={(movedQuestion) =>
+                      moveQuestion(
+                        chosenQuestions,
+                        setChosenQuestions,
+                        questions,
+                        setQuestions,
+                        movedQuestion
+                      )
+                    }
+                    deleteQuestion={deleteQuestion}
+                    modifyQuestion={modifyQuestion}
+                  />
+                </div>
+                <div className="container questions createTest">
+                  <AddTestForm
+                    addTest={addTest}
+                    dateEnd={dateEnd}
+                    dateStart={dateStart}
+                    setDateStart={setDateStart}
+                    setDateEnd={setDateEnd} />
+                  <QuestionDropArea
+                    questions={chosenQuestions}
+                    dropFunc={(movedQuestion) =>
+                      moveQuestion(
+                        questions,
+                        setQuestions,
+                        chosenQuestions,
+                        setChosenQuestions,
+                        movedQuestion
+                      )
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+          }/>
+          <Route exact path="/tests" element={
+            <BrowseTests
+              tests={tests}
+              getSolutions={getSolutions}
+            />}/>
+        </Routes>
+      </BrowserRouter>
+
     </DndProvider>
   );
 }
