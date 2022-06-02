@@ -261,10 +261,15 @@ table, th, td {
 }
 
 .answered-grid {
-  /* display: flex; */
   column-gap: 10px;
   padding-bottom: 20px;
   column-width: 300px;
   text-align: left;
   justify-content: stretch;
+}
+
+.rating {
+  border: 1px solid #2c2c2c;
+  border-style: dashed;
+  padding: 5px;
 }
