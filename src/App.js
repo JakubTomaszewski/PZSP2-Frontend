@@ -18,13 +18,15 @@ function App() {
   const [questions, setQuestions] = useState([]);
   const [chosenQuestions, setChosenQuestions] = useState([]);
   const [dateStart, setDateStart] = useState(moment().format());
+  const [testName, setTestName] = useState('')
   const [dateEnd, setDateEnd] = useState(moment().format());
 
   // Load questions from server
   useEffect(() => {
     const getQuestions = async () => {
-      const questionsFromServer = await fetchQuestions();
-      setQuestions(questionsFromServer);
+      fetchQuestions()
+        .then(response => setQuestions(response))
+        .catch(err => console.log(`could not fetch questions: ${err}`))
     };
 
     getQuestions();
@@ -105,6 +107,7 @@ function App() {
       teacherId: 1,
       endDate: dateEnd,
       startDate: dateStart,
+      name: testName
     };
 
     const res = await fetch(urlAddTest, {
@@ -124,6 +127,7 @@ function App() {
             <AddQuestionForm
               addQuestion={addQuestion}
               fetchCourseCodes={fetchCourseCodes}
+              noQuestions={questions.length}
             />
             <QuestionDropArea
               questions={questions}
@@ -147,6 +151,8 @@ function App() {
               dateStart={dateStart}
               setDateStart={setDateStart}
               setDateEnd={setDateEnd}
+              setTestName={setTestName}
+              noQuestions={chosenQuestions.length}
             />
             <QuestionDropArea
               questions={chosenQuestions}
