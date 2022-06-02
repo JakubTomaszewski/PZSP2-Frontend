@@ -51,6 +51,8 @@ const Test = ({test}) => {
                 </Grid>
 
                 {showReports && <Solutions
+                    testId={test.testId}
+                    testName={test.name}
                     solutions={chosenSolutions}
                     rateS={[rateSolution, setRateSolution]}
                     setSolutionRate={setSolutionRate}/>}
