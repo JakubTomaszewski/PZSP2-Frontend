@@ -57,7 +57,9 @@ const Test = ({test}) => {
                     rateS={[rateSolution, setRateSolution]}
                     setSolutionRate={setSolutionRate}/>}
                 {rateSolution && <Rating
-                    solution={solutionRate}/>}
+                    solution={solutionRate}
+                    setRateSolution={setRateSolution}
+                    testId={test.testId}/>}
             </div>
     );
 }
