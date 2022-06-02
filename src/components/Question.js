@@ -99,7 +99,7 @@ const Question = ({
             </div>
           </Grid>
           <Grid item xs={12} marginTop={1}>
-            <Typography>{questionId}</Typography>
+            <Typography>ID pytana: {questionId}</Typography>
           </Grid>
         </Grid>
       ) : (

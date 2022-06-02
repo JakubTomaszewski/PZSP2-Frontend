@@ -13,17 +13,24 @@ const AddTestForm = ({
   dateEnd,
   setDateEnd,
   setTestName,
-  noQuestions
+  noQuestions,
 }) => {
   return (
     <Grid container>
-      <Grid item container className="header" direction='row' maxWidth justifyContent={"center"}>
-        <Grid item container spacing={0} direction='column' xs={7}>
+      <Grid
+        item
+        container
+        className="header"
+        direction="row"
+        maxWidth
+        justifyContent={"center"}
+      >
+        <Grid item container spacing={0} direction="column" xs={7}>
           <Grid item>
             <h2>Tworzenie testu</h2>
           </Grid>
           <Grid item>
-            <p>({noQuestions})</p>
+            <p>Pytania w teście: {noQuestions}</p>
           </Grid>
         </Grid>
         <Grid item xs={5}>
@@ -73,9 +80,9 @@ const AddTestForm = ({
           <TextField
             fullWidth
             outlined
-            label='Nazwa testu'
-            variant='outlined'
-            onChange={e => setTestName(e.target.value)}
+            label="Nazwa testu"
+            variant="outlined"
+            onChange={(e) => setTestName(e.target.value)}
           />
         </Grid>
       </Grid>
