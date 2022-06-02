@@ -9,25 +9,23 @@ import MenuIcon from "@mui/icons-material/Menu";
 
 const MenuBar = ({ panelName }) => {
   return (
-    <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static">
-        <Toolbar>
-          <IconButton
-            size="large"
-            edge="start"
-            color="inherit"
-            aria-label="menu"
-            sx={{ mr: 2 }}
-          >
-            <MenuIcon /> {/* TODO: OnClick={Redirect to all tests panel} */}
-          </IconButton>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            {panelName}
-          </Typography>
-          <Button color="inherit">Wyloguj</Button>
-        </Toolbar>
-      </AppBar>
-    </Box>
+    <AppBar position="sticky">
+      <Toolbar>
+        <IconButton
+          size="large"
+          edge="start"
+          color="inherit"
+          aria-label="menu"
+          sx={{ mr: 2 }}
+        >
+          <MenuIcon /> {/* TODO: OnClick={Redirect to all tests panel} */}
+        </IconButton>
+        <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+          {panelName}
+        </Typography>
+        <Button color="inherit">Wyloguj</Button>
+      </Toolbar>
+    </AppBar>
   );
 };
 
