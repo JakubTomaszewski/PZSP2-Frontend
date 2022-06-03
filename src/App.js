@@ -23,49 +23,58 @@ function App() {
 
   // Load questions from server
   useEffect(() => {
-    const getQuestions = async () => {
-      fetchQuestions()
-        .then(response => setQuestions(response))
-        .catch(err => console.log(`could not fetch questions: ${err}`))
-    };
-
-    getQuestions();
+    updateQuestions();
   }, []);
 
   const fetchQuestions = async () => {
     const res = await fetch(urlClosedQuestions);
-    const data = await res.json();
-    return data;
+    return await res.json();
+  };
+
+  const updateQuestions = async () => {
+    fetchQuestions()
+      .then(response => {
+        response.sort((a, b) => b.questionId - a.questionId) // sort by ID
+        setQuestions(response)
+      })
+      .catch(err => console.log(`could not fetch questions: ${err}`))
   };
 
   const fetchCourseCodes = async () => {
     const res = await fetch(urlCourseCodes);
-    const data = await res.json();
-    return data;
+    return await res.json();
   };
 
   const addQuestion = async (question) => {
     const newQuestion = question;
     newQuestion.teacherId = 1;
 
-    const res = await fetch(urlAddQuestions, {
+    await fetch(urlAddQuestions, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(newQuestion),
-    });
+    }).then(() => updateQuestions())
+      .catch(err => {
+        alert("Nie udało się dodać pytania. Spróbuj ponownie")
+        console.log(err)
+      })
   };
 
   const deleteQuestion = async (id) => {
-    const res = await fetch(`${urlQuestions}?id=${id}`, {
+    await fetch(`${urlQuestions}?id=${id}`, {
       method: "DELETE",
-    });
+    }).then(() => updateQuestions())
+      .catch((err) => {
+        alert("Nie udało się usunąć pytania. Spróbuj ponownie")
+        console.log(err)
+      })
   };
 
   const modifyQuestion = async (question) => {
     const newQuestion = question;
     newQuestion.teacherId = 1;
 
-    const res = await fetch(`${urlQuestions}?id=${newQuestion.questionId}`, {
+    await fetch(`${urlQuestions}?id=${newQuestion.questionId}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(newQuestion),
@@ -110,11 +119,15 @@ function App() {
       name: testName
     };
 
-    const res = await fetch(urlAddTest, {
+    await fetch(urlAddTest, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(newTest),
-    });
+    }).then(() => alert("Test został pomyślnie przesłany"))
+      .catch(err => {
+        alert("Nie udało się przesłać testu. Spróbu ponownie")
+        console.log(err)
+      })
   };
 
   return (
