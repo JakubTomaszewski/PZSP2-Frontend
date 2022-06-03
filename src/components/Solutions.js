@@ -2,13 +2,13 @@ import React from "react";
 import Button from "@mui/material/Button";
 import { saveAs } from "file-saver";
 
-const Solutions = ({testId, testName, solutions, rateS, setSolutionRate}) => {
-    const rateSolution = rateS[0]
-    const setRateSolution = rateS[1]
-    const downloadURL = `http://localhost:8080/api/tests/downloadCsv?id=`+testId
+const Solutions = ({testInfo, solutions, showRat, setSolutionToRate}) => {
+    const showRating = showRat[0]
+    const setShowRating = showRat[1]
+    const downloadURL = `http://localhost:8080/api/tests/downloadCsv?id=`+ testInfo[0]
 
     const saveFile = () => {
-        saveAs(downloadURL, testName+".csv");
+        saveAs(downloadURL, testInfo[1] + ".csv");
     };
 
     return (
@@ -29,9 +29,9 @@ const Solutions = ({testId, testName, solutions, rateS, setSolutionRate}) => {
                      <td>{solution.openQuestionsPoints+solution.closedQuestionsPoints}</td>
                      <td><Button className="solution-button"
                         onClick={() => (
-                            setRateSolution(!rateSolution),
-                            setSolutionRate(solution))}>
-                        Przesłane odpowiedzi</Button></td>
+                            setShowRating(!showRating),
+                            setSolutionToRate(solution))}>
+                        Oceń</Button></td>
                  </tr>)}
                  </table>
                  <Button onClick={saveFile}>

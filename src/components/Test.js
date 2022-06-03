@@ -6,29 +6,31 @@ import Solutions from "./Solutions"
 import Rating from "./Rating"
 
 const Test = ({test}) => {
-    const [showReports, setShowReports] = useState(false);
-    const [rateSolution, setRateSolution] = useState(false);
-    const [solutionRate, setSolutionRate] = useState({});
-    const [chosenSolutions, setChosenSolutions] = useState([]);
+    const [showReports, setShowReports] = useState(false);  // students tests submitted
+    const [showRating, setShowRating] = useState(false);    //
+    const [solutions, setSolutions] = useState([]);
+    const [solutionToRate, setSolutionToRate] = useState({});
 
     const setSolutionsURL = (testId) => {
         return `http://localhost:8080/api/solutions/test?id=${testId}`
       }
 
-      const setSolutions = async (testId) => {
-        try {
-          const res = await fetch(setSolutionsURL(testId))
-          const data = await res.json()
-          const tmpSolutions = data.solutions
-          setChosenSolutions(tmpSolutions)
-          return tmpSolutions
-        } catch {return {}}
+      const fetchSolutions = async (testId) => {
+        const res = await fetch(setSolutionsURL(testId))
+        .catch((err) => {
+            alert("Nie udało się pobrać przesłanych prac studentów. Spróbuj ponownie")
+            console.log(err)
+        })
+        const data = await res.json()
+        const tmpSolutions = data.solutions
+        setSolutions(tmpSolutions)
+        return tmpSolutions
       };
 
       function formatDate(date) {
-          const myArray = date.split("T")
-          const HHMMSS = myArray[1].split(".")
-          return myArray[0] + "\nGodzina: " + HHMMSS[0]
+          const dateAndTime = date.split("T")
+          const HHMMSS = dateAndTime[1].split(".")
+          return dateAndTime[0] + "\nGodzina: " + HHMMSS[0]
       }
 
     return (
@@ -42,24 +44,23 @@ const Test = ({test}) => {
                         key = {test.testId}
                         variant="contained"
                         onClick={() => {
-                            setSolutions(test.testId)
+                            fetchSolutions(test.testId)
                             setShowReports(!showReports)
-                            setRateSolution(false)
+                            setShowRating(false)
                         }}>
-                        Przesłane odpowiedzi
+                        Odpowiedzi studentów
                     </Button>
                 </Grid>
 
                 {showReports && <Solutions
-                    testId={test.testId}
-                    testName={test.name}
-                    solutions={chosenSolutions}
-                    rateS={[rateSolution, setRateSolution]}
-                    setSolutionRate={setSolutionRate}/>}
-                {rateSolution && <Rating
-                    solution={solutionRate}
-                    setRateSolution={setRateSolution}
-                    setSolutions={setSolutions}
+                    testInfo={[test.testId, test.name]}
+                    solutions={solutions}
+                    showRat={[showRating, setShowRating]}
+                    setSolutionToRate={setSolutionToRate}/>}
+                {showRating && <Rating
+                    solution={solutionToRate}
+                    setShowRating={setShowRating}
+                    fetchSolutions={fetchSolutions}
                     testId={test.testId}/>}
             </div>
     );

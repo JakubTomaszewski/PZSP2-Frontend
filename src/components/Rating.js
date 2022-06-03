@@ -2,7 +2,7 @@ import React from "react";
 import Button from "@mui/material/Button";
 import AnsweredQuestion from "./AnsweredQuestion"
 
-const Rating = ({solution, setRateSolution, setSolutions, testId}) => {
+const Rating = ({solution, setShowRating, fetchSolutions, testId}) => {
     const studentSolutions = solution.studentSolutions
 
     const urlPutGrades = `http://localhost:8080/api/solutions/test`;
@@ -19,7 +19,7 @@ const Rating = ({solution, setRateSolution, setSolutions, testId}) => {
             method: "PUT",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(newGrades),
-        }).then(() => setSolutions(testId)
+        }).then(() => fetchSolutions(testId)
             .catch((err) => {
                 alert("Nie udało się zapisć oceny. Spróbuj ponownie")
                 console.log(err)
@@ -42,7 +42,7 @@ const Rating = ({solution, setRateSolution, setSolutions, testId}) => {
                         }
                     });
                     handleSaveGrades()
-                    setRateSolution(false)
+                    setShowRating(false)
                     }}>
                 Zapisz oceny
             </Button>
