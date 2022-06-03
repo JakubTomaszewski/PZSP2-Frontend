@@ -2,7 +2,7 @@ import React from "react";
 import Button from "@mui/material/Button";
 import AnsweredQuestion from "./AnsweredQuestion"
 
-const Rating = ({solution, setRateSolution, testId}) => {
+const Rating = ({solution, setRateSolution, setSolutions, testId}) => {
     const studentSolutions = solution.studentSolutions
 
     const urlPutGrades = `http://localhost:8080/api/solutions/test`;
@@ -15,11 +15,15 @@ const Rating = ({solution, setRateSolution, testId}) => {
             solutionIds: solutionIds,
             grades: grades
         };
-        const res = await fetch(urlPutGrades, {
+        await fetch(urlPutGrades, {
             method: "PUT",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(newGrades),
-        })
+        }).then(() => setSolutions(testId)
+            .catch((err) => {
+                alert("Nie udało się zapisć oceny. Spróbuj ponownie")
+                console.log(err)
+            }))
     };
 
     return (

@@ -59,6 +59,7 @@ const Test = ({test}) => {
                 {rateSolution && <Rating
                     solution={solutionRate}
                     setRateSolution={setRateSolution}
+                    setSolutions={setSolutions}
                     testId={test.testId}/>}
             </div>
     );

@@ -226,6 +226,9 @@ text-align: center;
   height: 100%;
   width: 100%;
 }
+.browseTests h1 {
+  text-align: center;
+}
 
 .testrow {
   border: 1px solid #2c2c2c;

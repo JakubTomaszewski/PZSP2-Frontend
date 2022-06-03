@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from "react";
+import MenuBarBrowseTests from "./components/MenuBarBrowseTests";
 import Test from "./components/Test"
 
 const BrowseTests = () => {
@@ -17,19 +18,22 @@ const BrowseTests = () => {
   useEffect(() => {
     const getTests = async () => {
       const testsFromServer = await fetchTests();
+      testsFromServer.sort( function(a,b) { return b.testId - a.testId; })
       setTests(testsFromServer)
     };
     getTests();
   }, [])
 
     return (
+      <div>
+        <MenuBarBrowseTests/>
         <div className="browseTests">
-            <h1>Utworzone testy</h1>
-            <a href="/">powrót</a>
-            { tests && tests.map((test) =>
-                <Test test={test}></Test>
-            )}
+          <h1>Utworzone testy</h1>
+          { tests && tests.map((test) =>
+              <Test test={test}></Test>
+          )}
         </div>
+      </div>
     );
 }
 
