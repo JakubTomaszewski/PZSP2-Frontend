@@ -13,30 +13,30 @@ const Solutions = ({testInfo, solutions, showRat, setSolutionToRate}) => {
 
     return (
         <div className="solutions">
-             <table className="solution-table">
-                 <tr>
-                     <th>Imię</th>
-                     <th>Nazwisko</th>
-                     <th>Numer indeksu</th>
-                     <th>Liczba punktów</th>
-                     <th>Ocenianie</th>
-                 </tr>
-                 {solutions.map((solution) =>
-                 <tr>
-                     <td>{solution.studentName}</td>
-                     <td>{solution.studentSurname}</td>
-                     <td>{solution.studentId}</td>
-                     <td>{solution.openQuestionsPoints+solution.closedQuestionsPoints}</td>
-                     <td><Button className="solution-button"
-                        onClick={() => (
-                            setShowRating(!showRating),
-                            setSolutionToRate(solution))}>
-                        Oceń </Button></td>
-                 </tr>)}
-                 </table>
-                 <Button onClick={saveFile}>
-                    Pobierz oceny
-                </Button>
+            <table className="solution-table">
+                <tr>
+                    <th>Imię</th>
+                    <th>Nazwisko</th>
+                    <th>Numer indeksu</th>
+                    <th>Liczba punktów</th>
+                    <th>Ocenianie</th>
+                </tr>
+                {solutions.map((solution) =>
+                <tr key={solution.studentId} >
+                    <td>{solution.studentName}</td>
+                    <td>{solution.studentSurname}</td>
+                    <td>{solution.studentId}</td>
+                    <td>{solution.openQuestionsPoints+solution.closedQuestionsPoints}</td>
+                    <td><Button className="solution-button"
+                    onClick={() => {
+                        setShowRating(!showRating)
+                        setSolutionToRate(solution)}}>
+                    Oceń </Button></td>
+                </tr>)}
+            </table>
+            <Button onClick={saveFile}>
+                Pobierz oceny
+            </Button>
         </div>
     );
 }

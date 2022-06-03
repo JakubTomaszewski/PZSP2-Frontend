@@ -31,7 +31,9 @@ const Rating = ({solution, setShowRating, fetchSolutions, testId}) => {
             <h4>{solution.studentName} {solution.studentSurname}</h4>
             <h5>Nr indeksu: {solution.studentId}</h5>
             {studentSolutions.map((question) =>
-                <AnsweredQuestion question={question}/>
+                <AnsweredQuestion
+                    key={question.solutionId.questionId}
+                    question={question}/>
             )}
             <Button variant="contained" color="success"
                 className="rating-button" onClick={ () => {

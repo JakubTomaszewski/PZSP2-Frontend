@@ -5,13 +5,15 @@ const TestPreviw = ({testQuestions}) => {
     function listAnswers(answers) {
         return (
             <ul>
-                {answers.map((answer) => <li>{answer.content}</li>)}
+                {answers.map((answer) =>
+                    <li key={answer.answerId}>
+                        {answer.content} </li>)}
             </ul>
         )
     };
 
     function showAnswers(type, answers) {
-        if (type == "o") return (<p>Pytanie otwarte</p>)
+        if (type === "o") return (<p>Pytanie otwarte</p>)
         else return (listAnswers(answers))
     };
 
@@ -26,15 +28,11 @@ const TestPreviw = ({testQuestions}) => {
                 <tr>
                     <td>{questionInfo.question.content}</td>
                     <td>{showAnswers(
-                            questionInfo.question.type,
-                            questionInfo.question.answers)}
+                        questionInfo.question.type,
+                        questionInfo.question.answers)}
                     </td>
-                </tr>
-
-                // <QuestionPreview question={questionInfo.question}/>
-            )}
+                </tr>)}
             </table>
-
         </div>
     );
 

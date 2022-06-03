@@ -30,7 +30,7 @@ const BrowseTests = () => {
         <div className="browseTests">
           <h1>Utworzone testy</h1>
           { tests && tests.map((test) =>
-              <Test test={test}></Test>
+              <Test key={test.testId} test={test}></Test>
           )}
         </div>
       </div>

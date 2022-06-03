@@ -4,8 +4,6 @@ import Grid from "@mui/material/Grid";
 
 const AnsweredQuestion = ({question}) => {
 
-    const [points, setPoints] = useState();
-
     function updatePoints(newPoints) {
         question.tmpPoints = newPoints
     }
@@ -18,7 +16,6 @@ const AnsweredQuestion = ({question}) => {
     function setPointsInput(questionAns) {
         if (questionAns.studentAnswer == null) return (
             <input type="number" onChange={e => {
-                setPoints(e.target.value)
                 updatePoints(e.target.value)}}
             defaultValue={questionAns.points}/>)
         else {
