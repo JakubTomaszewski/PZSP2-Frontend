@@ -31,7 +31,7 @@ const Solutions = ({testInfo, solutions, showRat, setSolutionToRate}) => {
                         onClick={() => (
                             setShowRating(!showRating),
                             setSolutionToRate(solution))}>
-                        Oceń</Button></td>
+                        Oceń </Button></td>
                  </tr>)}
                  </table>
                  <Button onClick={saveFile}>

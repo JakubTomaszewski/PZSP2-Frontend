@@ -4,12 +4,14 @@ import Button from "@mui/material/Button";
 import Grid from "@mui/material/Grid";
 import Solutions from "./Solutions"
 import Rating from "./Rating"
+import TestPreviw from "./TestPreview";
 
 const Test = ({test}) => {
     const [showReports, setShowReports] = useState(false);  // students tests submitted
-    const [showRating, setShowRating] = useState(false);    //
+    const [showRating, setShowRating] = useState(false);    // rating specific student answers
     const [solutions, setSolutions] = useState([]);
     const [solutionToRate, setSolutionToRate] = useState({});
+    const [showTest, setShowTest] = useState(false);        // showing test preview
 
     const setSolutionsURL = (testId) => {
         return `http://localhost:8080/api/solutions/test?id=${testId}`
@@ -36,6 +38,12 @@ const Test = ({test}) => {
     return (
         <div className="testrow" key={test.testId}>
                 <h3>{test.name}</h3>
+                <Button variant='outlined'
+                    onClick={() => setShowTest(!showTest)}>
+                    Podgląd testu </Button>
+
+                {showTest && <TestPreviw testQuestions={test.testQuestions} />}
+
                 <Grid className="test-grid">
                     <p>hasło: {test.password}</p>
                     <p>Początek: {formatDate(test.startDate)}</p>
