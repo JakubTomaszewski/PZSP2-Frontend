@@ -5,9 +5,13 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
-import MenuIcon from "@mui/icons-material/Menu";
+import ArticleIcon from '@mui/icons-material/Article';
+import { useNavigate } from 'react-router-dom'
 
 const MenuBar = ({ panelName }) => {
+
+  const navigate = useNavigate()
+
   return (
     <AppBar position="sticky">
       <Toolbar>
@@ -18,11 +22,8 @@ const MenuBar = ({ panelName }) => {
           aria-label="menu"
           sx={{ mr: 2 }}
         >
-          <MenuIcon /> {/* TODO: OnClick={Redirect to all tests panel} */}
+          <ArticleIcon onClick={() => navigate('/tests')}/>
         </IconButton>
-        <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-          {panelName}
-        </Typography>
         <Button color="inherit">Wyloguj</Button>
       </Toolbar>
     </AppBar>
