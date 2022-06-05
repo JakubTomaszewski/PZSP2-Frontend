@@ -283,3 +283,13 @@ table, th, td {
   margin-bottom: 15px;
   table-layout: fixed;
 }
+
+
+.filters {
+  max-width: 550px;
+  padding: 20px;
+  overflow: auto;
+  border-radius: 15px;
+  min-height: 70px;
+  text-align: left;
+}

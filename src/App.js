@@ -11,14 +11,15 @@ import moment from "moment";
 
 function App() {
   const urlAddQuestions = "http://localhost:8080/api/questions";
-  const urlClosedQuestions = "http://localhost:8080/api/questions/all/";
+  const urlAllQuestions = "http://localhost:8080/api/questions/all/";
   const urlAddTest = "http://localhost:8080/api/tests";
   const urlQuestions = "http://localhost:8080/api/questions";
   const urlCourseCodes = "http://localhost:8080/api/courses/all/";
+  const [allQuestions, setAllQuestions] = useState([]);
   const [questions, setQuestions] = useState([]);
   const [chosenQuestions, setChosenQuestions] = useState([]);
   const [dateStart, setDateStart] = useState(moment().format());
-  const [testName, setTestName] = useState('')
+  const [testName, setTestName] = useState("");
   const [dateEnd, setDateEnd] = useState(moment().format());
 
   // Load questions from server
@@ -27,17 +28,18 @@ function App() {
   }, []);
 
   const fetchQuestions = async () => {
-    const res = await fetch(urlClosedQuestions);
+    const res = await fetch(urlAllQuestions);
     return await res.json();
   };
 
   const updateQuestions = async () => {
     fetchQuestions()
-      .then(response => {
-        response.sort((a, b) => b.questionId - a.questionId) // sort by ID
-        setQuestions(response)
+      .then((response) => {
+        response.sort((a, b) => b.questionId - a.questionId); // sort by ID
+        setQuestions(response);
+        setAllQuestions(response);
       })
-      .catch(err => console.log(`could not fetch questions: ${err}`))
+      .catch((err) => console.log(`could not fetch questions: ${err}`));
   };
 
   const fetchCourseCodes = async () => {
@@ -53,21 +55,23 @@ function App() {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(newQuestion),
-    }).then(() => updateQuestions())
-      .catch(err => {
-        alert("Nie udało się dodać pytania. Spróbuj ponownie")
-        console.log(err)
-      })
+    })
+      .then(() => updateQuestions())
+      .catch((err) => {
+        alert("Nie udało się dodać pytania. Spróbuj ponownie");
+        console.log(err);
+      });
   };
 
   const deleteQuestion = async (id) => {
     await fetch(`${urlQuestions}?id=${id}`, {
       method: "DELETE",
-    }).then(() => updateQuestions())
+    })
+      .then(() => updateQuestions())
       .catch((err) => {
-        alert("Nie udało się usunąć pytania. Spróbuj ponownie")
-        console.log(err)
-      })
+        alert("Nie udało się usunąć pytania. Spróbuj ponownie");
+        console.log(err);
+      });
   };
 
   const modifyQuestion = async (question) => {
@@ -90,6 +94,7 @@ function App() {
     const updatedQuestions = [...questions];
     updatedQuestions[updatedQuestionIndex] = updatedQuestion;
     setQuestions(updatedQuestions);
+    setAllQuestions(updatedQuestions);
   };
 
   const moveQuestion = (
@@ -116,18 +121,19 @@ function App() {
       teacherId: 1,
       endDate: dateEnd,
       startDate: dateStart,
-      name: testName
+      name: testName,
     };
 
     await fetch(urlAddTest, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(newTest),
-    }).then(() => alert("Test został pomyślnie przesłany"))
-      .catch(err => {
-        alert("Nie udało się przesłać testu. Spróbu ponownie")
-        console.log(err)
-      })
+    })
+      .then(() => alert("Test został pomyślnie przesłany"))
+      .catch((err) => {
+        alert("Nie udało się przesłać testu. Spróbu ponownie");
+        console.log(err);
+      });
   };
 
   return (
@@ -155,6 +161,8 @@ function App() {
               }
               deleteQuestion={deleteQuestion}
               modifyQuestion={modifyQuestion}
+              fetchCourseCodes={fetchCourseCodes}
+              allQuestionsArea={true}
             />
           </div>
           <div className="container questions createTest">

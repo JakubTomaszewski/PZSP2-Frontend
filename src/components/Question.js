@@ -27,7 +27,6 @@ const Question = ({
   function updateQuestion(question) {
     // PUT request
     modifyQuestion(question);
-    console.log(question);
     setEditingQuestion(false);
   }
 
