@@ -17,8 +17,10 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 ## Prerequisites
 Prior to running the app, you need to install node.js on your local machine.
 
-With node install [serve]():
+With node install [serve](https://github.com/vercel/serve) using command:
 ### `npm install -g serve`
+and all other dependencies with:
+### `npm install`
 
 ## Usage
 
