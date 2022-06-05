@@ -8,7 +8,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import Answers from "./Answers";
 import UpdateQuestionForm from "./UpdateQuestionForm";
-import {Typography} from "@mui/material";
+import { Typography } from "@mui/material";
 
 const Question = ({
   questionId,
@@ -17,15 +17,16 @@ const Question = ({
   answers,
   deleteQuestion,
   modifyQuestion,
+  course,
 }) => {
+
   const [editingQuestion, setEditingQuestion] = useState(false);
   const [{}, dragRef] = useDrag({
     type: "question",
-    item: { questionId, type, content, answers },
+    item: { questionId, type, content, answers, course },
   });
 
   function updateQuestion(question) {
-    // PUT request
     modifyQuestion(question);
     setEditingQuestion(false);
   }
@@ -109,6 +110,7 @@ const Question = ({
           answers={answers}
           updateQuestion={updateQuestion}
           cancelModify={() => setEditingQuestion(false)}
+          course={course}
         />
       )}
     </Box>

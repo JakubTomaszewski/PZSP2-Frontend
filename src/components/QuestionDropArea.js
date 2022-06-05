@@ -53,6 +53,7 @@ const QuestionDropArea = ({
               answers={question.answers}
               deleteQuestion={deleteQuestion}
               modifyQuestion={modifyQuestion}
+              course={question.course}
             />
           ))
         : questions
@@ -66,6 +67,7 @@ const QuestionDropArea = ({
                 answers={question.answers}
                 deleteQuestion={deleteQuestion}
                 modifyQuestion={modifyQuestion}
+                course={question.course}
               />
             ))}
     </div>

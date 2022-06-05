@@ -16,6 +16,7 @@ const UpdateQuestionForm = ({
   answers,
   updateQuestion,
   cancelModify,
+  course
 }) => {
   const openTypeQuestion = type === "o";
   const [questionContent, setText] = useState(content);
@@ -32,6 +33,7 @@ const UpdateQuestionForm = ({
     let question = {
       questionId: questionId,
       type: "o",
+      courseCode: course.courseCode,
       content: questionContent,
     };
 
@@ -40,6 +42,7 @@ const UpdateQuestionForm = ({
       question = {
         questionId: questionId,
         type: "c",
+        courseCode: course.courseCode,
         content: questionContent,
         answers: answersList.map((question) => question.content),
         areCorrect: answersList.map((question) => question.isCorrect),
@@ -70,6 +73,8 @@ const UpdateQuestionForm = ({
       }
     }
 
+    console.log('updated question')
+    console.log(question)
     updateQuestion(question);
 
     // setAnswersList([{ content: "", isCorrect: false }]);

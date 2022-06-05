@@ -49,7 +49,7 @@ function App() {
 
   const addQuestion = async (question) => {
     const newQuestion = question;
-    newQuestion.teacherId = 1;
+    newQuestion.teacherId = 2;
 
     await fetch(urlAddQuestions, {
       method: "POST",
@@ -76,7 +76,7 @@ function App() {
 
   const modifyQuestion = async (question) => {
     const newQuestion = question;
-    newQuestion.teacherId = 1;
+    newQuestion.teacherId = 2;
 
     await fetch(`${urlQuestions}?id=${newQuestion.questionId}`, {
       method: "PUT",
@@ -118,7 +118,7 @@ function App() {
   const addTest = async () => {
     const newTest = {
       questionsId: chosenQuestions.map((q) => q.questionId),
-      teacherId: 1,
+      teacherId: 2,
       endDate: dateEnd,
       startDate: dateStart,
       name: testName,
@@ -140,7 +140,6 @@ function App() {
     <DndProvider backend={HTML5Backend}>
       <div className="App">
         <MenuBar panelName="Panel nauczyciela" />
-        {/*<div className="container tags-box"></div>*/}
         <div className="dragndropArea">
           <div className="container questions existingQuestions">
             <AddQuestionForm
